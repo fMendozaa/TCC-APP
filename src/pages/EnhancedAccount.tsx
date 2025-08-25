@@ -205,7 +205,6 @@ export function EnhancedAccount() {
             <Badge className="bg-gradient-primary text-white">1#</Badge>
             <Badge className="bg-gradient-accent text-white">Oficial Account</Badge>
             <Badge className="bg-brand-pink text-white">trendfy</Badge>
-            <Badge variant="secondary">Early Adopter</Badge>
           </div>
         </Card>
 
