@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save } from "lucide-react";
+import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save, CheckCircle } from "lucide-react"; // Adicionado CheckCircle
 import { useToast } from "@/hooks/use-toast";
 
 interface UserProfile {
@@ -34,8 +34,8 @@ export function EnhancedAccount() {
     location: "São Paulo, SP",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face",
     followers: 1247,
-    following: 2,
-    posts: 0
+    following: 856,
+    posts: 47
   });
 
   const [tempProfile, setTempProfile] = useState(profile);
@@ -63,7 +63,7 @@ export function EnhancedAccount() {
       {/* Header */}
       <div className="bg-gradient-primary p-6 text-white">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">TRENDFY💠</h1>
+          <h1 className="text-2xl font-bold">TRENDFY</h1>
           <h2 className="text-xl font-semibold">Perfil</h2>
         </div>
       </div>
@@ -161,7 +161,10 @@ export function EnhancedAccount() {
             ) : (
               <>
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">{profile.name}</h2>
+                  <h2 className="text-2xl font-bold text-foreground flex items-center justify-center">
+                    {profile.name}
+                    <CheckCircle className="ml-2 w-5 h-5 text-blue-500" /> {/* Adicionado o ícone aqui */}
+                  </h2>
                   <p className="text-primary font-medium">@{profile.username}</p>
                   <p className="text-muted-foreground mt-2">{profile.bio}</p>
                   <p className="text-sm text-muted-foreground mt-1">📍 {profile.location}</p>
@@ -202,9 +205,10 @@ export function EnhancedAccount() {
         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-lg font-semibold text-foreground mb-4">Conquistas</h3>
           <div className="flex flex-wrap gap-2">
-            <Badge className="bg-gradient-primary text-white">1#</Badge>
-            <Badge className="bg-gradient-accent text-white">Oficial Account</Badge>
-            <Badge className="bg-brand-pink text-white">trendfy</Badge>
+            <Badge className="bg-gradient-primary text-white">Fashionista</Badge>
+            <Badge className="bg-gradient-accent text-white">Trend Setter</Badge>
+            <Badge className="bg-brand-pink text-white">Style Expert</Badge>
+            <Badge variant="secondary">Early Adopter</Badge>
           </div>
         </Card>
 
@@ -224,7 +228,7 @@ export function EnhancedAccount() {
             <div className="flex items-center gap-3">
               <ShoppingBag className="w-6 h-6 text-primary" />
               <div>
-                <p className="text-2xl font-bold text-foreground">0</p>
+                <p className="text-2xl font-bold text-foreground">23</p>
                 <p className="text-sm text-muted-foreground">Compras</p>
               </div>
             </div>
