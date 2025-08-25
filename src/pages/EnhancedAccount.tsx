@@ -63,7 +63,7 @@ export function EnhancedAccount() {
       {/* Header */}
       <div className="bg-gradient-primary p-6 text-white">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">TRENDFY</h1>
+          <h1 className="text-2xl font-bold">TRENDFY💠</h1>
           <h2 className="text-xl font-semibold">Perfil</h2>
         </div>
       </div>
