@@ -2,42 +2,99 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, Heart, MessageCircle } from "lucide-react";
+import { Search, Heart, MessageCircle, User } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
-const posts = [
+interface Comment {
+  id: string;
+  user: string;
+  text: string;
+  timestamp: Date;
+}
+
+interface Post {
+  id: number;
+  user: string;
+  content: string;
+  likes: number;
+  isLiked: boolean;
+  comments: Comment[];
+  image: string;
+  timestamp: Date;
+}
+
+const initialPosts: Post[] = [
   {
     id: 1,
-    user: "friend1",
-    content: "Loving this summer vibe! 🌞",
+    user: "fashionista_ana",
+    content: "Loving this summer vibe! 🌞 Combinação perfeita para o fim de semana!",
     likes: 24,
+    isLiked: false,
     comments: [
-      { user: "friend1", text: "Looks amazing!" },
-      { user: "friend2", text: "Where is this?" }
+      { id: "1", user: "style_guru", text: "Looks amazing! Onde comprou essa jaqueta?", timestamp: new Date(Date.now() - 120000) },
+      { id: "2", user: "trend_lover", text: "Inspiração total! 💕", timestamp: new Date(Date.now() - 60000) }
     ],
-    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=300&fit=crop&crop=center"
+    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=300&fit=crop&crop=center",
+    timestamp: new Date(Date.now() - 3600000)
   },
   {
     id: 2,
-    user: "friend2",
-    content: "New outfit, who dis? 😎",
+    user: "streetwear_king",
+    content: "New outfit, who dis? 😎 Trendfy sempre entregando as melhores peças!",
     likes: 18,
+    isLiked: false,
     comments: [
-      { user: "friend3", text: "Slaying it!" }
+      { id: "3", user: "fashion_police", text: "Slaying it! 🔥", timestamp: new Date(Date.now() - 30000) }
     ],
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=300&fit=crop&crop=center"
+    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=300&fit=crop&crop=center",
+    timestamp: new Date(Date.now() - 7200000)
   }
 ];
 
 export function Social() {
+  const [posts, setPosts] = useState(initialPosts);
   const [newComment, setNewComment] = useState<{[key: number]: string}>({});
+  const { toast } = useToast();
+
+  const handleLike = (postId: number) => {
+    setPosts(prevPosts => 
+      prevPosts.map(post => 
+        post.id === postId 
+          ? { 
+              ...post, 
+              likes: post.isLiked ? post.likes - 1 : post.likes + 1,
+              isLiked: !post.isLiked
+            }
+          : post
+      )
+    );
+  };
 
   const handleAddComment = (postId: number) => {
-    const comment = newComment[postId];
-    if (comment?.trim()) {
-      // Here you would normally add the comment to the post
-      console.log(`Adding comment to post ${postId}: ${comment}`);
-      setNewComment(prev => ({ ...prev, [postId]: '' }));
-    }
+    const commentText = newComment[postId]?.trim();
+    if (!commentText) return;
+
+    const newCommentObj: Comment = {
+      id: Date.now().toString(),
+      user: "você",
+      text: commentText,
+      timestamp: new Date()
+    };
+
+    setPosts(prevPosts => 
+      prevPosts.map(post => 
+        post.id === postId 
+          ? { ...post, comments: [...post.comments, newCommentObj] }
+          : post
+      )
+    );
+
+    setNewComment(prev => ({ ...prev, [postId]: '' }));
+    
+    toast({
+      title: "Comentário adicionado! 💬",
+      description: "Seu comentário foi publicado com sucesso",
+    });
   };
 
   return (
@@ -69,6 +126,21 @@ export function Social() {
         <div className="space-y-6">
           {posts.map((post) => (
             <Card key={post.id} className="p-0 bg-gradient-card shadow-card border-border/50 overflow-hidden">
+              {/* Post Header */}
+              <div className="p-4 border-b border-border/50">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow">
+                    <User className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">@{post.user}</h4>
+                    <p className="text-xs text-muted-foreground">
+                      {post.timestamp.toLocaleDateString('pt-BR')} às {post.timestamp.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Post Image */}
               <div className="w-full h-48 overflow-hidden">
                 <img 
@@ -81,13 +153,22 @@ export function Social() {
               <div className="p-4 space-y-3">
                 {/* Post Content */}
                 <div>
-                  <p className="font-semibold text-foreground">{post.content}</p>
+                  <p className="text-foreground leading-relaxed">{post.content}</p>
                 </div>
 
                 {/* Actions */}
                 <div className="flex items-center gap-4">
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-red-500">
-                    <Heart className="w-4 h-4 mr-1" />
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => handleLike(post.id)}
+                    className={`${
+                      post.isLiked 
+                        ? 'text-red-500 hover:text-red-600' 
+                        : 'text-muted-foreground hover:text-red-500'
+                    }`}
+                  >
+                    <Heart className={`w-4 h-4 mr-1 ${post.isLiked ? 'fill-current' : ''}`} />
                     {post.likes}
                   </Button>
                   <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
@@ -97,11 +178,23 @@ export function Social() {
                 </div>
 
                 {/* Comments */}
-                <div className="space-y-2">
-                  {post.comments.map((comment, index) => (
-                    <div key={index} className="text-sm">
-                      <span className="font-semibold text-foreground">{comment.user}</span>
-                      <span className="text-muted-foreground ml-2">{comment.text}</span>
+                <div className="space-y-3">
+                  {post.comments.map((comment) => (
+                    <div key={comment.id} className="bg-muted/30 rounded-lg p-3">
+                      <div className="flex items-start gap-2">
+                        <div className="w-6 h-6 bg-gradient-accent rounded-full flex items-center justify-center flex-shrink-0">
+                          <User className="w-3 h-3 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-semibold text-foreground text-sm">@{comment.user}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {comment.timestamp.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          <p className="text-muted-foreground text-sm">{comment.text}</p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -109,13 +202,15 @@ export function Social() {
                 {/* Add Comment */}
                 <div className="flex gap-2">
                   <Input
-                    placeholder="Add a comment..."
+                    placeholder="Escreva um comentário..."
                     value={newComment[post.id] || ''}
                     onChange={(e) => setNewComment(prev => ({ ...prev, [post.id]: e.target.value }))}
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddComment(post.id)}
                     className="flex-1 bg-background border-border text-sm"
                   />
                   <Button
                     onClick={() => handleAddComment(post.id)}
+                    disabled={!newComment[post.id]?.trim()}
                     className="bg-gradient-primary hover:bg-gradient-accent text-white"
                     size="sm"
                   >

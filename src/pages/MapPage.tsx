@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Navigation, Store } from "lucide-react";
+import { InteractiveMap } from "@/components/InteractiveMap";
 
 const stores = [
   { name: "Santa Cruz Shopping", distance: "2.1 km", type: "Shopping Center" },
@@ -20,28 +21,8 @@ export function MapPage() {
       </div>
 
       <div className="p-6 space-y-6">
-        {/* Map Placeholder */}
-        <Card className="w-full h-64 bg-gradient-card shadow-card border-border/50 overflow-hidden">
-          <div className="w-full h-full bg-muted/20 flex items-center justify-center relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20"></div>
-            <div className="text-center z-10">
-              <MapPin className="w-12 h-12 mx-auto text-primary mb-2" />
-              <p className="text-muted-foreground">Juiz de Fora, MG</p>
-              <p className="text-sm text-muted-foreground/70">Interactive map would load here</p>
-            </div>
-            
-            {/* Mock map pins */}
-            <div className="absolute top-4 left-8">
-              <div className="w-6 h-6 bg-gradient-primary rounded-full shadow-glow animate-pulse"></div>
-            </div>
-            <div className="absolute bottom-8 right-12">
-              <div className="w-6 h-6 bg-gradient-accent rounded-full shadow-glow animate-pulse"></div>
-            </div>
-            <div className="absolute top-12 right-6">
-              <div className="w-6 h-6 bg-brand-pink rounded-full shadow-glow animate-pulse"></div>
-            </div>
-          </div>
-        </Card>
+        {/* Interactive Map */}
+        <InteractiveMap />
 
         {/* Current Location */}
         <Card className="p-4 bg-gradient-card shadow-card border-border/50">

@@ -1,0 +1,280 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, CreditCard, Truck, Shield } from "lucide-react";
+import { useCartStore } from "@/stores/cartStore";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+
+export function Checkout() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { items, getTotalPrice, clearCart } = useCartStore();
+  const [isProcessing, setIsProcessing] = useState(false);
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    name: '',
+    phone: '',
+    cep: '',
+    address: '',
+    number: '',
+    city: '',
+    state: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+    cardName: ''
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handlePurchase = async () => {
+    setIsProcessing(true);
+    
+    // Simular processamento de pagamento
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    
+    clearCart();
+    toast({
+      title: "Compra realizada com sucesso! 🎉",
+      description: "Você receberá um email com os detalhes do pedido em breve.",
+    });
+    
+    navigate('/account');
+    setIsProcessing(false);
+  };
+
+  const total = getTotalPrice();
+  const shipping = 15.90;
+  const finalTotal = total + shipping;
+
+  if (items.length === 0) {
+    return (
+      <div className="min-h-screen bg-background pb-20">
+        <div className="bg-gradient-primary p-6 text-white">
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/market')}
+              className="text-white hover:bg-white/20"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <h1 className="text-2xl font-bold">Checkout</h1>
+          </div>
+        </div>
+        
+        <div className="p-6 text-center">
+          <Card className="p-8 bg-gradient-card shadow-card border-border/50">
+            <h3 className="text-xl font-semibold text-foreground mb-2">Carrinho vazio</h3>
+            <p className="text-muted-foreground mb-4">Adicione alguns produtos para continuar</p>
+            <Button 
+              onClick={() => navigate('/market')}
+              className="bg-gradient-primary hover:bg-gradient-accent text-white shadow-glow"
+            >
+              Ir às compras
+            </Button>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background pb-20">
+      <div className="bg-gradient-primary p-6 text-white">
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => navigate('/market')}
+            className="text-white hover:bg-white/20"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
+          <h1 className="text-2xl font-bold">Finalizar Compra</h1>
+        </div>
+      </div>
+
+      <div className="p-6 space-y-6">
+        {/* Resumo do Pedido */}
+        <Card className="p-6 bg-gradient-card shadow-card border-border/50">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Resumo do Pedido</h3>
+          <div className="space-y-3">
+            {items.map((item) => (
+              <div key={item.id} className="flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={item.image} 
+                    alt={item.name}
+                    className="w-12 h-12 rounded-lg object-cover"
+                  />
+                  <div>
+                    <p className="text-foreground font-medium">{item.name}</p>
+                    <p className="text-sm text-muted-foreground">Qtd: {item.quantity}</p>
+                  </div>
+                </div>
+                <p className="text-primary font-semibold">
+                  R$ {(item.priceValue * item.quantity).toFixed(2)}
+                </p>
+              </div>
+            ))}
+          </div>
+          
+          <Separator className="my-4" />
+          
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Subtotal:</span>
+              <span className="text-foreground">R$ {total.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Frete:</span>
+              <span className="text-foreground">R$ {shipping.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-lg font-semibold">
+              <span className="text-foreground">Total:</span>
+              <span className="text-primary">R$ {finalTotal.toFixed(2)}</span>
+            </div>
+          </div>
+        </Card>
+
+        {/* Dados de Entrega */}
+        <Card className="p-6 bg-gradient-card shadow-card border-border/50">
+          <div className="flex items-center gap-2 mb-4">
+            <Truck className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-semibold text-foreground">Dados de Entrega</h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-foreground">Nome completo</Label>
+              <Input 
+                id="name"
+                value={formData.name}
+                onChange={(e) => handleInputChange('name', e.target.value)}
+                placeholder="Seu nome completo"
+                className="bg-background border-border"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="phone" className="text-foreground">Telefone</Label>
+              <Input 
+                id="phone"
+                value={formData.phone}
+                onChange={(e) => handleInputChange('phone', e.target.value)}
+                placeholder="(11) 99999-9999"
+                className="bg-background border-border"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="cep" className="text-foreground">CEP</Label>
+              <Input 
+                id="cep"
+                value={formData.cep}
+                onChange={(e) => handleInputChange('cep', e.target.value)}
+                placeholder="00000-000"
+                className="bg-background border-border"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="address" className="text-foreground">Endereço</Label>
+              <Input 
+                id="address"
+                value={formData.address}
+                onChange={(e) => handleInputChange('address', e.target.value)}
+                placeholder="Rua, avenida..."
+                className="bg-background border-border"
+              />
+            </div>
+          </div>
+        </Card>
+
+        {/* Dados de Pagamento */}
+        <Card className="p-6 bg-gradient-card shadow-card border-border/50">
+          <div className="flex items-center gap-2 mb-4">
+            <CreditCard className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-semibold text-foreground">Pagamento</h3>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="cardName" className="text-foreground">Nome no cartão</Label>
+              <Input 
+                id="cardName"
+                value={formData.cardName}
+                onChange={(e) => handleInputChange('cardName', e.target.value)}
+                placeholder="Como está no cartão"
+                className="bg-background border-border"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="cardNumber" className="text-foreground">Número do cartão</Label>
+              <Input 
+                id="cardNumber"
+                value={formData.cardNumber}
+                onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+                placeholder="0000 0000 0000 0000"
+                className="bg-background border-border"
+              />
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="expiryDate" className="text-foreground">Validade</Label>
+                <Input 
+                  id="expiryDate"
+                  value={formData.expiryDate}
+                  onChange={(e) => handleInputChange('expiryDate', e.target.value)}
+                  placeholder="MM/AA"
+                  className="bg-background border-border"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="cvv" className="text-foreground">CVV</Label>
+                <Input 
+                  id="cvv"
+                  value={formData.cvv}
+                  onChange={(e) => handleInputChange('cvv', e.target.value)}
+                  placeholder="000"
+                  className="bg-background border-border"
+                />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Segurança */}
+        <div className="flex items-center justify-center gap-2 text-muted-foreground">
+          <Shield className="w-4 h-4" />
+          <span className="text-sm">Pagamento 100% seguro e criptografado</span>
+        </div>
+
+        {/* Finalizar Compra */}
+        <Button 
+          onClick={handlePurchase}
+          disabled={isProcessing}
+          className="w-full bg-gradient-primary hover:bg-gradient-accent text-white font-semibold py-4 rounded-lg shadow-glow transition-all duration-300 hover:scale-[0.98]"
+        >
+          {isProcessing ? (
+            <span>Processando pagamento...</span>
+          ) : (
+            <span>Finalizar Compra - R$ {finalTotal.toFixed(2)}</span>
+          )}
+        </Button>
+      </div>
+    </div>
+  );
+}
