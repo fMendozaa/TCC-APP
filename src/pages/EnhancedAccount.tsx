@@ -202,9 +202,9 @@ export function EnhancedAccount() {
         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-lg font-semibold text-foreground mb-4">Conquistas</h3>
           <div className="flex flex-wrap gap-2">
-            <Badge className="bg-gradient-primary text-white">Fashionista</Badge>
-            <Badge className="bg-gradient-accent text-white">Trend Setter</Badge>
-            <Badge className="bg-brand-pink text-white">Style Expert</Badge>
+            <Badge className="bg-gradient-primary text-white">1#</Badge>
+            <Badge className="bg-gradient-accent text-white">Oficial Account</Badge>
+            <Badge className="bg-brand-pink text-white">trendfy</Badge>
             <Badge variant="secondary">Early Adopter</Badge>
           </div>
         </Card>
@@ -225,7 +225,7 @@ export function EnhancedAccount() {
             <div className="flex items-center gap-3">
               <ShoppingBag className="w-6 h-6 text-primary" />
               <div>
-                <p className="text-2xl font-bold text-foreground">23</p>
+                <p className="text-2xl font-bold text-foreground">0</p>
                 <p className="text-sm text-muted-foreground">Compras</p>
               </div>
             </div>
