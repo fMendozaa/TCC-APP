@@ -30,7 +30,7 @@ export function MapPage() {
             <Navigation className="w-5 h-5 text-primary" />
             <div>
               <h3 className="font-semibold text-foreground">Sua localização</h3>
-              <p className="text-sm text-muted-foreground">Centro, Juiz de Fora</p>
+              <p className="text-sm text-muted-foreground">Fiap School, Lins de Vasconcelos</p>
             </div>
           </div>
         </Card>
