@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Send, Trash2, Bot, User, Key } from "lucide-react";
+import { Send, Trash2, Bot, User } from "lucide-react";
 import OpenAI from 'openai';
 
 interface Message {
@@ -23,11 +23,9 @@ export function AIChat() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [openaiKey, setOpenaiKey] = useState('');
-  const [showKeyInput, setShowKeyInput] = useState(true);
 
   const sendMessage = async (text: string) => {
-    if (!openaiKey.trim()) return;
+    if (!text.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -41,7 +39,7 @@ export function AIChat() {
 
     try {
       const openai = new OpenAI({
-        apiKey: openaiKey,
+        apiKey: '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',
         dangerouslyAllowBrowser: true
       });
 
@@ -77,7 +75,7 @@ export function AIChat() {
       console.error('Erro na API:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Ops! Houve um problema com a conexão. Verifique sua chave API ou tente novamente mais tarde. 😅",
+        text: "Ops! Houve um problema com a conexão. Tente novamente mais tarde. 😅",
         isUser: false,
         timestamp: new Date()
       };
@@ -104,46 +102,6 @@ export function AIChat() {
       }
     ]);
   };
-
-  const activateAI = () => {
-    if (openaiKey.trim()) {
-      setShowKeyInput(false);
-    }
-  };
-
-  if (showKeyInput) {
-    return (
-      <div className="p-6 space-y-4">
-        <Card className="p-6 bg-gradient-card shadow-card border-border/50 text-center">
-          <Bot className="w-12 h-12 mx-auto mb-4 text-primary" />
-          <h3 className="text-xl font-semibold text-foreground mb-2">Ativar IA Conversacional</h3>
-          <p className="text-muted-foreground mb-4">
-            Para conversar com nossa IA especialista em moda, você precisa de uma chave da OpenAI. Para Melhor experiência copie e cole: 
-
-faça as alterações opara ue nao seja preciso colocar a api toda hora esta é a api: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
-          </p>
-          
-          <div className="space-y-3">
-            <Input
-              type="password"
-              placeholder="Cole sua chave API da OpenAI aqui..."
-              value={openaiKey}
-              onChange={(e) => setOpenaiKey(e.target.value)}
-              className="bg-background border-border"
-            />
-            <Button 
-              onClick={activateAI}
-              disabled={!openaiKey.trim()}
-              className="bg-gradient-primary hover:bg-gradient-accent text-white shadow-glow"
-            >
-              <Key className="w-4 h-4 mr-2" />
-              Ativar IA
-            </Button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col h-full">
