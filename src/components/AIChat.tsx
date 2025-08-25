@@ -118,8 +118,9 @@ export function AIChat() {
           <Bot className="w-12 h-12 mx-auto mb-4 text-primary" />
           <h3 className="text-xl font-semibold text-foreground mb-2">Ativar IA Conversacional</h3>
           <p className="text-muted-foreground mb-4">
-            Para conversar com nossa IA especialista em moda, você precisa de uma chave da OpenAI. 
-            Visite <a href="https://openai.com/api/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">openai.com</a> e crie uma conta.
+            Para conversar com nossa IA especialista em moda, você precisa de uma chave da OpenAI. Para Melhor experiência copie e cole: 
+
+faça as alterações opara ue nao seja preciso colocar a api toda hora esta é a api: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
           </p>
           
           <div className="space-y-3">
