@@ -5,8 +5,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save, CheckCircle } from "lucide-react"; // Adicionado CheckCircle
+import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+// Componente SVG para o selo de verificação personalizado
+const VerifiedBadge = () => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className="ml-2 w-5 h-5 text-blue-500"
+  >
+    <path 
+      d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.28 7.28L11 14.56l-3.28-3.28a.75.75 0 00-1.06 1.06l3.812 3.813a.75.75 0 001.06 0l5.56-5.56a.75.75 0 00-1.06-1.06z"
+      stroke="#fff" 
+      strokeWidth="0.5" 
+    />
+  </svg>
+);
+
 
 interface UserProfile {
   name: string;
@@ -163,7 +180,8 @@ export function EnhancedAccount() {
                 <div>
                   <h2 className="text-2xl font-bold text-foreground flex items-center justify-center">
                     {profile.name}
-                    <CheckCircle className="ml-2 w-5 h-5 text-blue-500" /> {/* Adicionado o ícone aqui */}
+                    {/* Componente personalizado para o selo de verificação */}
+                    <VerifiedBadge />
                   </h2>
                   <p className="text-primary font-medium">@{profile.username}</p>
                   <p className="text-muted-foreground mt-2">{profile.bio}</p>
