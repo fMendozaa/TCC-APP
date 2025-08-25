@@ -42,7 +42,7 @@ export function EnhancedAccount() {
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   
-  const [profile, setProfile] = useState<UserProfile>({
+const [profile, setProfile] = useState<UserProfile>({
     name: "TRENDFY",
     username: "trendfy",
     bio: "Mais famoso app de trends",
@@ -51,8 +51,8 @@ export function EnhancedAccount() {
     location: "São Paulo, SP",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face",
     followers: 1247,
-    following: 856,
-    posts: 47
+    following: 2,
+    posts: 0
   });
 
   const [tempProfile, setTempProfile] = useState(profile);
@@ -220,13 +220,12 @@ export function EnhancedAccount() {
         </div>
 
         {/* Achievements */}
-        <Card className="p-6 bg-gradient-card shadow-card border-border/50">
+         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-lg font-semibold text-foreground mb-4">Conquistas</h3>
           <div className="flex flex-wrap gap-2">
-            <Badge className="bg-gradient-primary text-white">Fashionista</Badge>
-            <Badge className="bg-gradient-accent text-white">Trend Setter</Badge>
-            <Badge className="bg-brand-pink text-white">Style Expert</Badge>
-            <Badge variant="secondary">Early Adopter</Badge>
+            <Badge className="bg-gradient-primary text-white">1#</Badge>
+            <Badge className="bg-gradient-accent text-white">Oficial Account</Badge>
+            <Badge className="bg-brand-pink text-white">trendfy</Badge>
           </div>
         </Card>
 
