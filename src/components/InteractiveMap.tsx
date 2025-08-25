@@ -8,22 +8,34 @@ import { MapPin, Navigation } from 'lucide-react';
 
 const stores = [
   { 
-    name: "Santa Cruz Shopping", 
+    name: "Oficina de Moda", 
     coordinates: [-43.35, -21.76], 
-    type: "Shopping Center",
-    distance: "2.1 km"
+    type: "Loja de Roupas",
+    distance: "24m"
   },
   { 
-    name: "Brenda Carvalho Lash Designer", 
+    name: "Loja Nikas", 
     coordinates: [-43.34, -21.75], 
-    type: "Beauty Salon",
-    distance: "1.8 km"
+    type: "Loja de Roupas",
+    distance: "210 m"
   },
   { 
-    name: "Davos Pizza", 
+    name: "Nucleon Moda Feminina", 
     coordinates: [-43.36, -21.77], 
-    type: "Restaurant",
-    distance: "3.2 km"
+    type: "Loja de Roupas",
+    distance: "450 m"
+  },
+  {
+    name: "Damoda Roupas e Acessórios",
+    coordinates: [-43.37, -21.78],
+    type: "Loja de Roupas",
+    distance: "1.1 km"
+  },
+  {
+    name: "Lojão do Brás",
+    coordinates: [-43.38, -21.79],
+    type: "Loja de Roupas",
+    distance: "3.7 km",
   },
 ];
 
