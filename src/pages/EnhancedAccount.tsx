@@ -26,16 +26,16 @@ export function EnhancedAccount() {
   const [isEditing, setIsEditing] = useState(false);
   
   const [profile, setProfile] = useState<UserProfile>({
-    name: "Anna Silva",
-    username: "fashionista_anna",
-    bio: "Passionate about fashion and trends | Style lover ✨",
-    email: "anna@example.com",
+    name: "TRENDFY",
+    username: "trendfy",
+    bio: "Mais famoso app de trends",
+    email: "trendfy@trend.com",
     phone: "(11) 99999-9999",
     location: "São Paulo, SP",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face",
     followers: 1247,
-    following: 856,
-    posts: 47
+    following: 2,
+    posts: 0
   });
 
   const [tempProfile, setTempProfile] = useState(profile);
