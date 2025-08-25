@@ -4,9 +4,11 @@ import { MapPin, Navigation, Store } from "lucide-react";
 import { InteractiveMap } from "@/components/InteractiveMap";
 
 const stores = [
-  { name: "Santa Cruz Shopping", distance: "2.1 km", type: "Shopping Center" },
-  { name: "Brenda Carvalho Lash Designer", distance: "1.8 km", type: "Beauty Salon" },
-  { name: "Davos Pizza Pré-assada", distance: "3.2 km", type: "Restaurant" },
+  { name: "Oficina de Moda", distance: "24m", type: "Shopping Loja de Roupas" },
+  { name: "Loja Nikas", distance: "210 m", type: "Loja de Roupas" },
+  { name: "Nucleon Moda Feminina", distance: "450 m", type: "Loja de Roupas" },
+  { name: "Damoda Roupas e Acessórios", distance: "1.1 km", type: "Loja de Roupas" },
+  { name: "Lojão do Brás", distance: "3.7 km", type: "Loja de Roupas"},
 ];
 
 export function MapPage() {
