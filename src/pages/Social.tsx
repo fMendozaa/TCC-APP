@@ -106,7 +106,7 @@ export function Social() {
 
     const newCommentObj: Comment = {
       id: Date.now().toString(),
-      user: "você_verificado",
+      user: "trendfy_verificado",
       text: commentText,
       timestamp: new Date()
     };
@@ -217,7 +217,7 @@ export function Social() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-semibold text-foreground text-sm">@TrendFy-{comment.user.replace('_verificado', '')}</span>
+                            <span className="font-semibold text-foreground text-sm">@{comment.user.replace('_verificado', '')}</span>
                             {comment.user.includes('verificado') && (
                               <svg 
                                 xmlns="http://www.w3.org/2000/svg" 
