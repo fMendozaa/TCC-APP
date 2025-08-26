@@ -48,7 +48,7 @@ const [profile, setProfile] = useState<UserProfile>({
     name: "TRENDFY",
     username: "trendfy",
     bio: "Mais famoso app de trends",
-    email: "trendfy@trend.com",
+    email: "bheghost12@gmail.com",
     phone: "(11) 99999-9999",
     location: "São Paulo, SP",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face",
