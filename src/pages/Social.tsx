@@ -68,68 +68,24 @@ const mockFollowers: User[] = [
 const mockFollowing: User[] = [
   {
     id: "5",
-    name: "Fabricio M.",
-    username: "Fabricio",
-    avatar: "",
+    name: "Street Wear King",
+    username: "streetwear_king",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: false,
-    bio: "Fundador da TrendFy",
+    bio: "Streetwear é vida 🔥",
     followers: 12847
   },
   {
     id: "6",
-    name: "Rafael Ikeda",
-    username: "Rafael",
-    avatar: "",
+    name: "Minimal Chic",
+    username: "minimal_chic",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Fundador da TrendFy",
-    followers: 12847
-  },
-  {
-    id: "7",
-    name: "Bernardo A",
-    username: "Bernardo",
-    avatar: "",
-    isFollowing: true,
-    isFollowingYou: true,
-    verified: true,
-    bio: "Fundador da TrendFy",
-    followers: 12847
-  },
-  {
-    id: "8",
-    name: "Samir",
-    username: "Samir",
-    avatar: "",
-    isFollowing: true,
-    isFollowingYou: true,
-    verified: true,
-    bio: "Fundador da TrendFy",
-    followers: 12847
-  },
-  {
-    id: "9",
-    name: "Eloah",
-    username: "Eloah",
-    avatar: "",
-    isFollowing: true,
-    isFollowingYou: true,
-    verified: true,
-    bio: "Fundadora da TrendFy",
-    followers: 12847
-  },
-  {
-    id: "10",
-    name: "Nicole",
-    username: "Nicole",
-    avatar: "",
-    isFollowing: true,
-    isFollowingYou: true,
-    verified: true,
-    bio: "Fundadora da TrendFy",
-    followers: 12847
+    bio: "Less is more ✨",
+    followers: 5432
   }
 ];
 
