@@ -45,7 +45,7 @@ export function Checkout() {
       orderId: `TR-${Date.now()}`,
       items,
       total: finalTotal,
-      customerEmail: formData.email || "cliente@exemplo.com"
+      customerEmail: formData.email || "bheghost12@gmail.com"
     };
     
     // Simulação visual do email enviado
