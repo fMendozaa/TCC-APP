@@ -24,17 +24,40 @@ export function MapPage() {
 
       <div className="p-6 space-y-6">
         {/* Map Container */}
-        <div className="h-[calc(100vh-200px)] rounded-lg overflow-hidden shadow-card bg-gradient-card border border-border/50">
+        <div className="h-[400px] rounded-lg overflow-hidden shadow-card bg-gradient-card border border-border/50">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29257.847177431616!2d-46.65419095!3d-23.5629335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sSão%20Paulo%2C%20SP!5e0!3m2!1spt!2sbr!4v1679834567890!5m2!1spt!2sbr"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1955748643283!2d-46.65834908502207!3d-23.561414384691647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sSao%20Paulo%2C%20State%20of%20Sao%20Paulo%2C%20Brazil!5e0!3m2!1sen!2s!4v1735159200000!5m2!1sen!2s"
             width="100%"
             height="100%"
             style={{ border: 0 }}
-            allowFullScreen
+            allowFullScreen={true}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Google Maps - São Paulo"
+            title="Google Maps - São Paulo Centro"
           />
+        </div>
+
+        {/* Map Options */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="p-4 bg-gradient-card shadow-card border-border/50">
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-primary" />
+              <div>
+                <h4 className="font-semibold text-foreground">Centro SP</h4>
+                <p className="text-sm text-muted-foreground">Região central</p>
+              </div>
+            </div>
+          </Card>
+          
+          <Card className="p-4 bg-gradient-card shadow-card border-border/50">
+            <div className="flex items-center gap-3">
+              <Navigation className="w-5 h-5 text-accent" />
+              <div>
+                <h4 className="font-semibold text-foreground">Navegação</h4>
+                <p className="text-sm text-muted-foreground">Rotas disponíveis</p>
+              </div>
+            </div>
+          </Card>
         </div>
 
         {/* Current Location */}
