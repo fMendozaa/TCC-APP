@@ -5,7 +5,7 @@ import { Home } from "./Home";
 import { MapPage } from "./MapPage";
 import { AI } from "./AI";
 import { Social } from "./Social";
-import { Market } from "./Market";
+import { EnhancedMarket } from "./EnhancedMarket";
 import { EnhancedAccount } from "./EnhancedAccount";
 
 const Index = () => {
@@ -28,7 +28,7 @@ const Index = () => {
     if (path === '/map') return <MapPage />;
     if (path === '/ai') return <AI />;
     if (path === '/social') return <Social />;
-    if (path === '/market') return <Market />;
+    if (path === '/market') return <EnhancedMarket />;
     if (path === '/account') return <EnhancedAccount />;
     return <Home />; // default home page
   };

@@ -40,10 +40,41 @@ export function Checkout() {
     // Simular processamento de pagamento
     await new Promise(resolve => setTimeout(resolve, 3000));
     
+    // Simular envio de email
+    const orderData = {
+      orderId: `TR-${Date.now()}`,
+      items,
+      total: finalTotal,
+      customerEmail: formData.email || "cliente@exemplo.com"
+    };
+    
+    // Simulação visual do email enviado
+    console.log(`
+    📧 EMAIL ENVIADO PARA: ${orderData.customerEmail}
+    
+    Assunto: Confirmação de Pedido - TRENDFY
+    
+    Olá!
+    
+    ⚠️ ESTE É UM EMAIL DE TESTE PARA UM APLICATIVO FICTÍCIO ⚠️
+    
+    Seu pedido ${orderData.orderId} foi realizado com sucesso!
+    
+    Resumo do pedido:
+    ${items.map(item => `- ${item.name} x${item.quantity} - R$ ${(item.priceValue * item.quantity).toFixed(2)}`).join('\n    ')}
+    
+    Total: R$ ${finalTotal.toFixed(2)}
+    
+    Este é apenas um teste para demonstração do aplicativo TRENDFY.
+    Nenhuma compra real foi processada.
+    
+    Obrigado por testar nosso app!
+    `);
+    
     clearCart();
     toast({
       title: "Compra realizada com sucesso! 🎉",
-      description: "Você receberá um email com os detalhes do pedido em breve.",
+      description: "Email de confirmação enviado (teste). Verifique o console para ver o email.",
     });
     
     navigate('/account');

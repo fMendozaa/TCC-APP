@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 // Componente SVG para o selo de verificação personalizado
 const VerifiedBadge = () => (
@@ -40,6 +41,7 @@ interface UserProfile {
 
 export function EnhancedAccount() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   
 const [profile, setProfile] = useState<UserProfile>({
@@ -255,10 +257,10 @@ const [profile, setProfile] = useState<UserProfile>({
         {/* Settings & Options */}
         <div className="space-y-3">
           {[
-            { icon: Settings, label: "Configurações da Conta", color: "text-muted-foreground", action: () => console.log('Settings') },
+            { icon: Settings, label: "Configurações da Conta", color: "text-muted-foreground", action: () => navigate('/settings') },
             { icon: Heart, label: "Itens Favoritos", color: "text-red-500", action: () => console.log('Favorites') },
-            { icon: ShoppingBag, label: "Histórico de Compras", color: "text-primary", action: () => console.log('Orders') },
-            { icon: Users, label: "Amigos e Seguidores", color: "text-accent", action: () => console.log('Friends') },
+            { icon: ShoppingBag, label: "Histórico de Compras", color: "text-primary", action: () => navigate('/order-history') },
+            { icon: Users, label: "Amigos e Seguidores", color: "text-accent", action: () => navigate('/followers') },
           ].map((item, index) => (
             <Card key={index} className="p-4 bg-gradient-card shadow-card border-border/50 hover:bg-muted/10 transition-colors cursor-pointer">
               <div className="flex items-center justify-between" onClick={item.action}>

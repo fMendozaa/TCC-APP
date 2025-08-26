@@ -31,8 +31,9 @@ const initialPosts: Post[] = [
     likes: 24,
     isLiked: false,
     comments: [
-      { id: "1", user: "style_guru", text: "Looks amazing! Onde comprou essa jaqueta?", timestamp: new Date(Date.now() - 120000) },
-      { id: "2", user: "trend_lover", text: "Inspiração total! 💕", timestamp: new Date(Date.now() - 60000) }
+      { id: "1", user: "style_guru", text: "Onde comprou essa jaqueta? Ficou incrível! 😍", timestamp: new Date(Date.now() - 120000) },
+      { id: "2", user: "trend_lover", text: "Inspiração total! Já salvei nos favoritos 💕", timestamp: new Date(Date.now() - 60000) },
+      { id: "3", user: "moda_brasil", text: "Perfeita para esse calor de São Paulo!", timestamp: new Date(Date.now() - 45000) }
     ],
     image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=300&fit=crop&crop=center",
     timestamp: new Date(Date.now() - 3600000)
@@ -44,10 +45,39 @@ const initialPosts: Post[] = [
     likes: 18,
     isLiked: false,
     comments: [
-      { id: "3", user: "fashion_police", text: "Slaying it! 🔥", timestamp: new Date(Date.now() - 30000) }
+      { id: "4", user: "fashion_police", text: "Slaying it! 🔥 Onde conseguiu esse tênis?", timestamp: new Date(Date.now() - 30000) },
+      { id: "5", user: "urban_style", text: "Estilo urbano no ponto! Adorei a combinação", timestamp: new Date(Date.now() - 15000) }
     ],
     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=300&fit=crop&crop=center",
     timestamp: new Date(Date.now() - 7200000)
+  },
+  {
+    id: 3,
+    user: "minimal_chic",
+    content: "Less is more ✨ Apostando no minimalismo para essa sexta-feira!",
+    likes: 31,
+    isLiked: false,
+    comments: [
+      { id: "6", user: "clean_style", text: "Simplicidade é tudo! Que visual elegante", timestamp: new Date(Date.now() - 90000) },
+      { id: "7", user: "fashion_lover", text: "Estilo atemporal, nunca sai de moda! 👏", timestamp: new Date(Date.now() - 60000) },
+      { id: "8", user: "basic_trends", text: "Prova que básico pode ser chique", timestamp: new Date(Date.now() - 30000) }
+    ],
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=300&fit=crop&crop=center",
+    timestamp: new Date(Date.now() - 14400000)
+  },
+  {
+    id: 4,
+    user: "vintage_soul",
+    content: "Garimpo de domingo rendeu! 🛍️ Achados incríveis no brechó do centro",
+    likes: 42,
+    isLiked: false,
+    comments: [
+      { id: "9", user: "eco_fashion", text: "Moda sustentável é o futuro! Que achados lindos", timestamp: new Date(Date.now() - 180000) },
+      { id: "10", user: "retro_vibes", text: "Vintage nunca decepciona! Qual brechó?", timestamp: new Date(Date.now() - 120000) },
+      { id: "11", user: "sustainable_me", text: "Adorei! Também sou viciada em brechós 💚", timestamp: new Date(Date.now() - 75000) }
+    ],
+    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&h=300&fit=crop&crop=center",
+    timestamp: new Date(Date.now() - 21600000)
   }
 ];
 
@@ -76,7 +106,7 @@ export function Social() {
 
     const newCommentObj: Comment = {
       id: Date.now().toString(),
-      user: "você",
+      user: "você_verificado",
       text: commentText,
       timestamp: new Date()
     };
@@ -187,7 +217,17 @@ export function Social() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-semibold text-foreground text-sm">@{comment.user}</span>
+                            <span className="font-semibold text-foreground text-sm">@{comment.user.replace('_verificado', '')}</span>
+                            {comment.user.includes('verificado') && (
+                              <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 24 24" 
+                                fill="currentColor" 
+                                className="w-4 h-4 text-blue-500"
+                              >
+                                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.28 7.28L11 14.56l-3.28-3.28a.75.75 0 00-1.06 1.06l3.812 3.813a.75.75 0 001.06 0l5.56-5.56a.75.75 0 00-1.06-1.06z" stroke="#fff" strokeWidth="0.5" />
+                              </svg>
+                            )}
                             <span className="text-xs text-muted-foreground">
                               {comment.timestamp.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                             </span>

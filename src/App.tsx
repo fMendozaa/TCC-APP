@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppSidebar } from "@/components/AppSidebar";
 import Index from "./pages/Index";
 import { Checkout } from "./pages/Checkout";
+import { Settings } from "./pages/Settings";
+import { OrderHistory } from "./pages/OrderHistory";
+import { Followers } from "./pages/Followers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,7 +39,9 @@ const App = () => (
                   <Route path="/market" element={<Index />} />
                   <Route path="/account" element={<Index />} />
                   <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/settings" element={<Index />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/order-history" element={<OrderHistory />} />
+                  <Route path="/followers" element={<Followers />} />
                   <Route path="/favorites" element={<Index />} />
                   <Route path="/notifications" element={<Index />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
