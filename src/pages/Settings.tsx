@@ -166,7 +166,7 @@ export function Settings() {
         <Card className="p-6 bg-gradient-card shadow-card border-border/50 text-center">
           <h3 className="text-lg font-semibold text-foreground mb-2">TRENDFY</h3>
           <p className="text-muted-foreground text-sm mb-1">Versão 1.0.0</p>
-          <p className="text-muted-foreground text-xs">© 2024 TRENDFY. Todos os direitos reservados.</p>
+          <p className="text-muted-foreground text-xs">© 2025 TRENDFY. Todos os direitos reservados.</p>
         </Card>
       </div>
     </div>
