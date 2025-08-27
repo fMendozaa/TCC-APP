@@ -176,7 +176,7 @@ const mockPosts: Post[] = [
     liked: true
   },
   {
-    id: "3",
+    id: "9",
     user: mockFollowing[0],
     content: "Street style é mais que roupa, é atitude! 🔥 Quando você usa algo que te representa, isso transparece. #StreetWear #Atitude",
     image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=400&fit=crop",
@@ -196,7 +196,7 @@ const mockComments: Comment[] = [
     timestamp: "1h"
   },
   {
-    id: "2",
+    id: "10",
     user: mockFollowing[1],
     content: "Perfeita combinação! Inspiração para o meu próximo look ✨",
     timestamp: "45min"
