@@ -87,68 +87,68 @@ const mockFollowers: User[] = [
 const mockFollowing: User[] = [
   {
     id: "5",
-    name: "Street Wear King",
-    username: "streetwear_king",
+    name: "Fabricio M",
+    username: "fabricio",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: false,
-    bio: "Streetwear é vida 🔥",
-    followers: 12847
+    bio: "Fundador da TrendFy",
+    followers: 24542
   },
   {
     id: "6",
-    name: "Minimal Chic",
-    username: "minimal_chic",
+    name: "Rafael Ikeda",
+    username: "rafaelikeda",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Less is more ✨",
-    followers: 5432
+    bio: "Fundador TrendFy",
+    followers: 25753
   },
   {
     id: "7",
-    name: "Minimal Chic",
-    username: "minimal_chic",
+    name: "Samir",
+    username: "samir",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Less is more ✨",
-    followers: 5432
+    bio: "Fundador TrendFy",
+    followers: 19737
   },
   {
     id: "8",
-    name: "Minimal Chic",
-    username: "minimal_chic",
+    name: "Bernardo A",
+    username: "bernardo",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Less is more ✨",
-    followers: 5432
+    bio: "Fundador TrendFy",
+    followers: 10104
   },
   {
     id: "9",
-    name: "Minimal Chic",
-    username: "minimal_chic",
+    name: "Eloah",
+    username: "eloah",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Less is more ✨",
-    followers: 5432
+    bio: "Fundadora TrendFy",
+    followers: 12321
   },
   {
     id: "10",
-    name: "Minimal Chic",
-    username: "minimal_chic",
+    name: "Nicole",
+    username: "nicole",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Less is more ✨",
-    followers: 5432
+    bio: "Fundadora TrendFy",
+    followers: 12312
   }
 ];
 
