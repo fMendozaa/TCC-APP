@@ -26,7 +26,7 @@ export function MapPage() {
         {/* Map Container */}
         <div className="h-[400px] rounded-lg overflow-hidden shadow-card bg-gradient-card border border-border/50">
           <iframe
-            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=S%C3%A3o%20Paulo,%20SP,%20Brazil+(TRENDFY%20Map)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29267.068242073495!2d-46.65844954999999!3d-23.561684399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59541c6c79c3%3A0x36b90a85f0f8cb33!2sS%C3%A3o%20Paulo%2C%20SP!5e0!3m2!1spt!2sbr!4v1706886400000!5m2!1spt!2sbr"
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -34,6 +34,7 @@ export function MapPage() {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Mapa - São Paulo Centro"
+            key="google-maps"
           />
         </div>
 

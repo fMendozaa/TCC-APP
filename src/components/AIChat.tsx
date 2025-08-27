@@ -162,7 +162,7 @@ export function AIChat() {
               className={`max-w-[75%] rounded-xl p-4 shadow-sm ${
                 message.isUser
                   ? "bg-gradient-primary text-white"
-                  : "bg-white border border-border/50"
+                  : "bg-gradient-card text-foreground border border-border/50"
               }`}
             >
               <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.text}</p>
@@ -187,7 +187,7 @@ export function AIChat() {
             <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow">
               <Bot className="w-4 h-4 text-white" />
             </div>
-            <div className="bg-white border border-border/50 rounded-xl p-4 shadow-sm">
+            <div className="bg-gradient-card text-foreground border border-border/50 rounded-xl p-4 shadow-sm">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>

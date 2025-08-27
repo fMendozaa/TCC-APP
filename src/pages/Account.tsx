@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search, Settings, Heart, ShoppingBag, Users } from "lucide-react";
+import { EmailNotification } from "@/components/EmailNotification";
 
 export function Account() {
   return (
@@ -65,7 +66,9 @@ export function Account() {
             <p className="text-sm text-muted-foreground">Followers</p>
           </Card>
         </div>
-
+        
+        {/* Email Test Section */}
+        <EmailNotification />
         {/* Settings & Options */}
         <div className="space-y-3">
           {[
