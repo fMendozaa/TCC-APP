@@ -105,6 +105,50 @@ const mockFollowing: User[] = [
     verified: true,
     bio: "Less is more ✨",
     followers: 5432
+  },
+  {
+    id: "7",
+    name: "Minimal Chic",
+    username: "minimal_chic",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    isFollowing: true,
+    isFollowingYou: true,
+    verified: true,
+    bio: "Less is more ✨",
+    followers: 5432
+  },
+  {
+    id: "8",
+    name: "Minimal Chic",
+    username: "minimal_chic",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    isFollowing: true,
+    isFollowingYou: true,
+    verified: true,
+    bio: "Less is more ✨",
+    followers: 5432
+  },
+  {
+    id: "9",
+    name: "Minimal Chic",
+    username: "minimal_chic",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    isFollowing: true,
+    isFollowingYou: true,
+    verified: true,
+    bio: "Less is more ✨",
+    followers: 5432
+  },
+  {
+    id: "10",
+    name: "Minimal Chic",
+    username: "minimal_chic",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    isFollowing: true,
+    isFollowingYou: true,
+    verified: true,
+    bio: "Less is more ✨",
+    followers: 5432
   }
 ];
 
