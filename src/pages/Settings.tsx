@@ -30,59 +30,70 @@ const colorThemes = [
   { 
     id: 'default', 
     name: 'TRENDFY Original', 
-    primary: 'from-purple-600 to-pink-600',
-    accent: 'from-blue-500 to-cyan-400'
+    primary: '240 100% 65%, 280 80% 60%',
+    accent: '280 80% 60%, 320 60% 70%'
   },
   { 
     id: 'ocean', 
     name: 'Ocean Blue', 
-    primary: 'from-blue-600 to-indigo-600',
-    accent: 'from-cyan-500 to-blue-500'
+    primary: '210 100% 65%, 215 80% 60%',
+    accent: '185 80% 60%, 195 70% 65%'
   },
   { 
     id: 'sunset', 
     name: 'Sunset Orange', 
-    primary: 'from-orange-500 to-red-500',
-    accent: 'from-yellow-500 to-orange-500'
+    primary: '15 100% 60%, 5 85% 55%',
+    accent: '45 100% 65%, 25 95% 60%'
   },
   { 
     id: 'forest', 
     name: 'Forest Green', 
-    primary: 'from-green-600 to-emerald-600',
-    accent: 'from-emerald-500 to-green-500'
+    primary: '140 70% 45%, 155 75% 50%',
+    accent: '125 65% 55%, 135 70% 50%'
   },
   { 
     id: 'royal', 
     name: 'Royal Purple', 
-    primary: 'from-violet-600 to-purple-600',
-    accent: 'from-indigo-500 to-violet-500'
+    primary: '270 85% 65%, 260 80% 60%',
+    accent: '245 75% 65%, 255 70% 60%'
   }
 ];
 
 export function Settings() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [settings, setSettings] = useState({
-    notifications: true,
-    darkMode: true,
-    soundEffects: true,
-    biometricAuth: false,
-    autoSave: true,
-    marketingEmails: false,
-    language: 'pt-BR',
-    colorTheme: 'default'
+  const [settings, setSettings] = useState(() => {
+    const saved = localStorage.getItem('trendfy-settings');
+    return saved ? JSON.parse(saved) : {
+      notifications: true,
+      darkMode: true,
+      soundEffects: true,
+      biometricAuth: false,
+      autoSave: true,
+      marketingEmails: false,
+      language: 'pt-BR',
+      colorTheme: 'default'
+    };
   });
 
   const handleSettingChange = (key: string, value: boolean | string) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+    const newSettings = { ...settings, [key]: value };
+    setSettings(newSettings);
+    localStorage.setItem('trendfy-settings', JSON.stringify(newSettings));
     
     if (key === 'colorTheme') {
       // Aplicar tema de cor
       const theme = colorThemes.find(t => t.id === value);
       if (theme) {
         const root = document.documentElement;
-        root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${theme.primary.replace('from-', '').replace(' to-', ', ')})`);
-        root.style.setProperty('--gradient-accent', `linear-gradient(135deg, ${theme.accent.replace('from-', '').replace(' to-', ', ')})`);
+        const [primaryStart, primaryEnd] = theme.primary.split(', ');
+        const [accentStart, accentEnd] = theme.accent.split(', ');
+        
+        root.style.setProperty('--gradient-primary', `linear-gradient(135deg, hsl(${primaryStart}), hsl(${primaryEnd}))`);
+        root.style.setProperty('--gradient-accent', `linear-gradient(135deg, hsl(${accentStart}), hsl(${accentEnd}))`);
+        root.style.setProperty('--brand-blue', primaryStart);
+        root.style.setProperty('--brand-purple', primaryEnd);
+        root.style.setProperty('--brand-pink', accentEnd);
       }
     }
     
@@ -204,7 +215,12 @@ export function Settings() {
                         {item.options?.map((option) => (
                           <SelectItem key={option.id} value={option.id}>
                             <div className="flex items-center gap-2">
-                              <div className={`w-4 h-4 rounded bg-gradient-to-r ${option.primary}`}></div>
+                              <div 
+                                className="w-4 h-4 rounded"
+                                style={{
+                                  background: `linear-gradient(135deg, hsl(${option.primary.split(', ')[0]}), hsl(${option.primary.split(', ')[1]}))`
+                                }}
+                              ></div>
                               {option.name}
                               {settings.colorTheme === option.id && <Check className="w-4 h-4 text-primary" />}
                             </div>
