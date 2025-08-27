@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,11 @@ export function AIChat() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const sendMessage = async (text: string) => {
     if (!text.trim()) return;
@@ -104,82 +109,127 @@ export function AIChat() {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex justify-end p-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={clearChat}
-          className="border-border hover:bg-destructive/10 hover:text-destructive"
-        >
-          <Trash2 className="w-4 h-4" />
-        </Button>
+    <div className="flex flex-col h-[calc(100vh-160px)] bg-gradient-card rounded-lg shadow-card border border-border/50 mx-4 mb-4">
+      {/* Chat Header */}
+      <div className="p-4 border-b border-border bg-gradient-primary rounded-t-lg">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <Bot className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">TrendFy AI</h3>
+              <p className="text-xs text-white/80">Especialista em Moda</p>
+            </div>
+          </div>
+          {messages.length > 0 && (
+            <Button 
+              onClick={clearChat}
+              variant="ghost"
+              size="sm"
+              className="text-white hover:bg-white/20"
+            >
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[calc(100vh-200px)]">
+      {/* Messages Area */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-background/50" ref={messagesEndRef}>
+        {messages.length === 0 && (
+          <div className="text-center text-muted-foreground py-8">
+            <Bot className="w-12 h-12 mx-auto mb-4 text-primary/50" />
+            <p className="text-lg font-medium mb-2">Olá! Sou a TrendFy AI</p>
+            <p className="text-sm">Estou aqui para ajudar com dicas de moda, tendências e estilo!</p>
+          </div>
+        )}
+        
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+            className={`flex items-start gap-3 ${
+              message.isUser ? "justify-end" : "justify-start"
+            }`}
           >
-            <div className={`flex items-start gap-3 max-w-[80%] ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                message.isUser 
-                  ? 'bg-gradient-primary shadow-glow' 
-                  : 'bg-gradient-accent shadow-glow'
-              }`}>
-                {message.isUser ? (
-                  <User className="w-4 h-4 text-white" />
-                ) : (
-                  <Bot className="w-4 h-4 text-white" />
-                )}
+            {!message.isUser && (
+              <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-glow">
+                <Bot className="w-4 h-4 text-white" />
               </div>
-              
-              <Card className={`p-4 ${
-                message.isUser 
-                  ? 'bg-gradient-primary text-white shadow-glow' 
-                  : 'bg-gradient-card shadow-card border-border/50'
-              }`}>
-                <p className={`${message.isUser ? 'text-white' : 'text-foreground'} text-sm leading-relaxed`}>
-                  {message.text}
-                </p>
-                <span className={`text-xs ${message.isUser ? 'text-white/70' : 'text-muted-foreground'} mt-2 block`}>
-                  {message.timestamp.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              </Card>
+            )}
+            
+            <div
+              className={`max-w-[75%] rounded-xl p-4 shadow-sm ${
+                message.isUser
+                  ? "bg-gradient-primary text-white"
+                  : "bg-white border border-border/50"
+              }`}
+            >
+              <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.text}</p>
+              <span className="text-xs opacity-70 mt-2 block">
+                {message.timestamp.toLocaleTimeString('pt-BR', { 
+                  hour: '2-digit', 
+                  minute: '2-digit' 
+                })}
+              </span>
             </div>
+            
+            {message.isUser && (
+              <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 shadow-glow">
+                <User className="w-4 h-4 text-white" />
+              </div>
+            )}
           </div>
         ))}
         
         {isLoading && (
-          <div className="flex justify-start">
-            <Card className="p-4 bg-gradient-card shadow-card border-border/50">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow">
+              <Bot className="w-4 h-4 text-white" />
+            </div>
+            <div className="bg-white border border-border/50 rounded-xl p-4 shadow-sm">
               <div className="flex items-center gap-2">
-                <Bot className="w-4 h-4 text-primary animate-pulse" />
-                <span className="text-muted-foreground text-sm">TrendFy está digitando...</span>
+                <div className="flex gap-1">
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-100"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-200"></div>
+                </div>
+                <span className="text-xs text-muted-foreground">TrendFy AI está digitando...</span>
               </div>
-            </Card>
+            </div>
           </div>
         )}
       </div>
 
-      <div className="p-4 border-t border-border">
-        <div className="flex gap-2">
-          <Input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Digite sua pergunta sobre moda..."
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            className="flex-1 bg-background border-border"
-            disabled={isLoading}
-          />
-          <Button
-            onClick={handleSendMessage}
-            disabled={isLoading || !inputValue.trim()}
-            className="bg-gradient-primary hover:bg-gradient-accent text-white shadow-glow"
-          >
-            <Send className="w-5 h-5" />
-          </Button>
+      {/* Input Area */}
+      <div className="border-t border-border bg-white/80 backdrop-blur-sm p-4 rounded-b-lg">
+        <div className="flex gap-3">
+          <div className="flex-1 relative">
+            <Input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
+              placeholder="Pergunte sobre moda, tendências, dicas de estilo..."
+              className="pl-4 pr-12 py-3 rounded-xl border-border/50 focus:border-primary bg-white"
+              disabled={isLoading}
+            />
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <Button 
+                onClick={handleSendMessage}
+                disabled={isLoading || !inputValue.trim()}
+                size="sm"
+                className="bg-gradient-primary hover:bg-gradient-accent text-white rounded-full w-8 h-8 p-0 shadow-glow"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex justify-center mt-2">
+          <p className="text-xs text-muted-foreground">
+            {messages.length > 0 ? `${messages.length} mensagens na conversa` : "Digite sua pergunta e pressione Enter"}
+          </p>
         </div>
       </div>
     </div>

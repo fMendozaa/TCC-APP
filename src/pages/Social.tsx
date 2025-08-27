@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Search, ArrowLeft, Users, UserPlus, UserMinus, UserCheck } from "lucide-react";
+import { Search, ArrowLeft, Users, UserPlus, UserMinus, UserCheck, Heart, MessageCircle, Share, VerifiedIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -18,6 +18,25 @@ interface User {
   verified?: boolean;
   bio?: string;
   followers: number;
+}
+
+interface Post {
+  id: string;
+  user: User;
+  content: string;
+  image?: string;
+  likes: number;
+  comments: number;
+  shares: number;
+  timestamp: string;
+  liked: boolean;
+}
+
+interface Comment {
+  id: string;
+  user: User;
+  content: string;
+  timestamp: string;
 }
 
 const mockFollowers: User[] = [
@@ -89,15 +108,285 @@ const mockFollowing: User[] = [
   }
 ];
 
-export function Followers() {
+const mockPosts: Post[] = [
+  {
+    id: "1",
+    user: mockFollowers[0],
+    content: "Olha que look incrível para o final de semana! Apostei em peças sustentáveis e o resultado ficou perfeito 💚 #ModaSustentavel #OOTD",
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+    likes: 234,
+    comments: 28,
+    shares: 12,
+    timestamp: "2h",
+    liked: false
+  },
+  {
+    id: "2",
+    user: mockFollowers[1],
+    content: "Dica do dia: misturar estampas pode parecer arriscado, mas com as cores certas fica um charme! Qual vocês preferem? 🌟",
+    image: "https://images.unsplash.com/photo-1583391733956-6c78276477e5?w=400&h=400&fit=crop",
+    likes: 456,
+    comments: 67,
+    shares: 23,
+    timestamp: "4h",
+    liked: true
+  },
+  {
+    id: "3",
+    user: mockFollowing[0],
+    content: "Street style é mais que roupa, é atitude! 🔥 Quando você usa algo que te representa, isso transparece. #StreetWear #Atitude",
+    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=400&fit=crop",
+    likes: 789,
+    comments: 156,
+    shares: 89,
+    timestamp: "6h",
+    liked: false
+  }
+];
+
+const mockComments: Comment[] = [
+  {
+    id: "1",
+    user: mockFollowers[1],
+    content: "Que look maravilhoso! Onde conseguiu essa blusa? 😍",
+    timestamp: "1h"
+  },
+  {
+    id: "2",
+    user: mockFollowing[1],
+    content: "Perfeita combinação! Inspiração para o meu próximo look ✨",
+    timestamp: "45min"
+  },
+  {
+    id: "3",
+    user: mockFollowers[2],
+    content: "Amei! Moda sustentável é o futuro 🌱💚",
+    timestamp: "30min"
+  }
+];
+
+export function Social() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState<'followers' | 'following'>('followers');
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeView, setActiveView] = useState<"feed" | "followers" | "following">("feed");
   const [followers, setFollowers] = useState(mockFollowers);
   const [following, setFollowing] = useState(mockFollowing);
+  const [posts, setPosts] = useState(mockPosts);
+  const [comments, setComments] = useState(mockComments);
+  const [newComment, setNewComment] = useState("");
 
-  const currentList = activeTab === 'followers' ? followers : following;
+  // Incrementar seguidores aleatoriamente
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFollowers(prev => prev.map(user => ({
+        ...user,
+        followers: user.followers + Math.floor(Math.random() * 3)
+      })));
+      setFollowing(prev => prev.map(user => ({
+        ...user,
+        followers: user.followers + Math.floor(Math.random() * 5)
+      })));
+    }, 15000); // A cada 15 segundos
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleLike = (postId: string) => {
+    setPosts(prev => prev.map(post => 
+      post.id === postId 
+        ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
+        : post
+    ));
+  };
+
+  const handleAddComment = () => {
+    if (!newComment.trim()) return;
+    
+    const comment: Comment = {
+      id: Date.now().toString(),
+      user: {
+        id: "me",
+        name: "Você",
+        username: "voce",
+        avatar: "",
+        verified: true,
+        isFollowing: false,
+        isFollowingYou: false,
+        followers: 0
+      },
+      content: newComment,
+      timestamp: "agora"
+    };
+    
+    setComments(prev => [comment, ...prev]);
+    setNewComment("");
+    toast({
+      title: "Comentário adicionado! ✅",
+      description: "Seu comentário foi publicado com sucesso",
+    });
+  };
+
+  const VerifiedBadge = () => (
+    <VerifiedIcon className="w-4 h-4 text-blue-500 ml-1 fill-current" />
+  );
+
+  if (activeView === "feed") {
+    return (
+      <div className="min-h-screen bg-background pb-20">
+        {/* Header */}
+        <div className="bg-gradient-primary p-6 text-white">
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold">TRENDFY</h1>
+            <h2 className="text-xl font-semibold">Social</h2>
+          </div>
+          <p className="text-white/90">Descubra tendências e conecte-se</p>
+        </div>
+
+        <div className="p-4 space-y-4">
+          {/* Navigation Tabs */}
+          <div className="flex gap-2 bg-card rounded-lg p-1">
+            <Button
+              variant={activeView === "feed" ? "default" : "ghost"}
+              onClick={() => setActiveView("feed")}
+              className={`flex-1 ${activeView === "feed" ? 'bg-gradient-primary text-white' : ''}`}
+            >
+              Feed
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => setActiveView("followers")}
+              className="flex-1 hover:bg-gradient-primary hover:text-white"
+            >
+              Seguidores
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => setActiveView("following")}
+              className="flex-1 hover:bg-gradient-primary hover:text-white"
+            >
+              Seguindo
+            </Button>
+          </div>
+
+          {/* Posts */}
+          {posts.map((post) => (
+            <Card key={post.id} className="bg-gradient-card shadow-card border-border/50">
+              {/* Post Header */}
+              <div className="p-4 pb-0">
+                <div className="flex items-center gap-3">
+                  <Avatar className="w-10 h-10">
+                    <AvatarImage src={post.user.avatar} alt={post.user.name} />
+                    <AvatarFallback className="bg-gradient-primary text-white">
+                      {post.user.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-1">
+                      <h3 className="font-semibold text-foreground">{post.user.name}</h3>
+                      {post.user.verified && <VerifiedBadge />}
+                    </div>
+                    <p className="text-sm text-muted-foreground">@{post.user.username} • {post.timestamp}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Post Content */}
+              <div className="p-4 pt-2">
+                <p className="text-foreground mb-3">{post.content}</p>
+                {post.image && (
+                  <div className="rounded-lg overflow-hidden mb-3">
+                    <img src={post.image} alt="Post" className="w-full h-64 object-cover" />
+                  </div>
+                )}
+              </div>
+
+              {/* Post Actions */}
+              <div className="p-4 pt-0 border-t border-border/50">
+                <div className="flex items-center justify-between">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleLike(post.id)}
+                    className={`gap-2 ${post.liked ? 'text-red-500' : 'text-muted-foreground'}`}
+                  >
+                    <Heart className={`w-4 h-4 ${post.liked ? 'fill-current' : ''}`} />
+                    {post.likes}
+                  </Button>
+                  <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground">
+                    <MessageCircle className="w-4 h-4" />
+                    {post.comments}
+                  </Button>
+                  <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground">
+                    <Share className="w-4 h-4" />
+                    {post.shares}
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          ))}
+
+          {/* Comments Section */}
+          <Card className="bg-gradient-card shadow-card border-border/50">
+            <div className="p-4">
+              <h3 className="font-semibold text-foreground mb-4">Comentários Recentes</h3>
+              
+              {/* Add Comment */}
+              <div className="flex gap-3 mb-4">
+                <Avatar className="w-8 h-8">
+                  <AvatarFallback className="bg-gradient-primary text-white text-xs">V</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 flex gap-2">
+                  <Input
+                    placeholder="Adicione um comentário..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddComment()}
+                    className="flex-1"
+                  />
+                  <Button
+                    onClick={handleAddComment}
+                    disabled={!newComment.trim()}
+                    size="sm"
+                    className="bg-gradient-primary hover:bg-gradient-accent text-white"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Comments List */}
+              <div className="space-y-3">
+                {comments.map((comment) => (
+                  <div key={comment.id} className="flex gap-3">
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage src={comment.user.avatar} alt={comment.user.name} />
+                      <AvatarFallback className="bg-gradient-primary text-white text-xs">
+                        {comment.user.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="bg-muted rounded-lg p-3">
+                        <div className="flex items-center gap-1 mb-1">
+                          <span className="font-medium text-sm text-foreground">{comment.user.name}</span>
+                          {comment.user.verified && <VerifiedBadge />}
+                        </div>
+                        <p className="text-sm text-foreground">{comment.content}</p>
+                      </div>
+                      <span className="text-xs text-muted-foreground ml-3 mt-1">{comment.timestamp}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // Followers/Following View
+  const currentList = activeView === "followers" ? followers : following;
   const filteredUsers = currentList.filter(user => 
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
@@ -111,7 +400,7 @@ export function Followers() {
           : user
       );
 
-    if (activeTab === 'followers') {
+    if (activeView === "followers") {
       setFollowers(updateUser);
     } else {
       setFollowing(updateUser);
@@ -126,21 +415,6 @@ export function Followers() {
     }
   };
 
-  const VerifiedBadge = () => (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 24 24" 
-      fill="currentColor" 
-      className="w-4 h-4 text-blue-500 ml-1"
-    >
-      <path 
-        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.28 7.28L11 14.56l-3.28-3.28a.75.75 0 00-1.06 1.06l3.812 3.813a.75.75 0 001.06 0l5.56-5.56a.75.75 0 00-1.06-1.06z"
-        stroke="#fff" 
-        strokeWidth="0.5" 
-      />
-    </svg>
-  );
-
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
@@ -149,7 +423,7 @@ export function Followers() {
           <Button 
             variant="ghost" 
             size="sm"
-            onClick={() => navigate('/account')}
+            onClick={() => setActiveView("feed")}
             className="text-white hover:bg-white/20"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -173,10 +447,10 @@ export function Followers() {
         {/* Tabs */}
         <div className="flex gap-2">
           <Button
-            variant={activeTab === 'followers' ? "default" : "outline"}
-            onClick={() => setActiveTab('followers')}
+            variant={activeView === "followers" ? "default" : "outline"}
+            onClick={() => setActiveView("followers")}
             className={`flex-1 ${
-              activeTab === 'followers' 
+              activeView === "followers" 
                 ? 'bg-gradient-primary text-white' 
                 : 'border-border text-muted-foreground'
             }`}
@@ -185,10 +459,10 @@ export function Followers() {
             Seguidores ({mockFollowers.length})
           </Button>
           <Button
-            variant={activeTab === 'following' ? "default" : "outline"}
-            onClick={() => setActiveTab('following')}
+            variant={activeView === "following" ? "default" : "outline"}
+            onClick={() => setActiveView("following")}
             className={`flex-1 ${
-              activeTab === 'following' 
+              activeView === "following" 
                 ? 'bg-gradient-primary text-white' 
                 : 'border-border text-muted-foreground'
             }`}
@@ -204,12 +478,12 @@ export function Followers() {
             <Card className="p-8 bg-gradient-card shadow-card border-border/50 text-center">
               <Users className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
               <h3 className="text-lg font-semibold text-foreground mb-2">
-                {searchQuery ? "Nenhum usuário encontrado" : `Nenhum ${activeTab === 'followers' ? 'seguidor' : 'seguindo'}`}
+                {searchQuery ? "Nenhum usuário encontrado" : `Nenhum ${activeView === "followers" ? 'seguidor' : 'seguindo'}`}
               </h3>
               <p className="text-muted-foreground">
                 {searchQuery 
                   ? "Tente buscar por outro nome ou username" 
-                  : `Você ainda não ${activeTab === 'followers' ? 'tem seguidores' : 'segue ninguém'}`
+                  : `Você ainda não ${activeView === "followers" ? 'tem seguidores' : 'segue ninguém'}`
                 }
               </p>
             </Card>
