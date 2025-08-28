@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, CreditCard, Truck, Shield } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { useNavigate } from "react-router-dom";
@@ -30,55 +31,86 @@ export function Checkout() {
     cardName: ''
   });
 
+  const [emailOptions] = useState([
+    'bheghost12@gmail.com',
+    'cliente@teste.com',
+    'usuario@exemplo.com',
+    'comprador@demo.com'
+  ]);
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handlePurchase = async () => {
+    if (!formData.email || !formData.name) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha o email e nome para continuar.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsProcessing(true);
     
-    // Simular processamento de pagamento
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    // Simular envio de email
-    const orderData = {
-      orderId: `TR-${Date.now()}`,
-      items,
-      total: finalTotal,
-      customerEmail: formData.email || "bheghost12@gmail.com"
-    };
-    
-    // Simulação visual do email enviado
-    console.log(`
-    📧 EMAIL ENVIADO PARA: ${orderData.customerEmail}
-    
-    Assunto: Confirmação de Pedido - TRENDFY
-    
-    Olá!
-    
-    ⚠️ ESTE É UM EMAIL DE TESTE PARA UM APLICATIVO FICTÍCIO ⚠️
-    
-    Seu pedido ${orderData.orderId} foi realizado com sucesso!
-    
-    Resumo do pedido:
-    ${items.map(item => `- ${item.name} x${item.quantity} - R$ ${(item.priceValue * item.quantity).toFixed(2)}`).join('\n    ')}
-    
-    Total: R$ ${finalTotal.toFixed(2)}
-    
-    Este é apenas um teste para demonstração do aplicativo TRENDFY.
-    Nenhuma compra real foi processada.
-    
-    Obrigado por testar nosso app!
-    `);
-    
-    clearCart();
-    toast({
-      title: "Compra realizada com sucesso! 🎉",
-      description: "Email de confirmação enviado (teste). Verifique o console para ver o email.",
-    });
-    
-    navigate('/account');
-    setIsProcessing(false);
+    try {
+      // Simular processamento de pagamento
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Enviar email real usando Supabase Edge Function
+      const orderData = {
+        orderId: `TR-${Date.now()}`,
+        items,
+        total: finalTotal,
+        customerEmail: formData.email,
+        customerName: formData.name
+      };
+      
+      // Chamar função de envio de email
+      const { supabase } = await import("@/integrations/supabase/client");
+      
+      const emailResponse = await supabase.functions.invoke('send-email', {
+        body: {
+          to: formData.email,
+          subject: `Confirmação de Pedido ${orderData.orderId} - TRENDFY`,
+          type: 'delivery',
+          customerName: formData.name,
+          orderDetails: {
+            total: finalTotal.toFixed(2),
+            items: items.length,
+            orderId: orderData.orderId
+          }
+        }
+      });
+
+      if (emailResponse.error) {
+        console.error('Erro ao enviar email:', emailResponse.error);
+        toast({
+          title: "Email não enviado",
+          description: "Compra realizada, mas houve um problema ao enviar o email de confirmação.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Compra realizada com sucesso! 🎉",
+          description: `Email de confirmação enviado para ${formData.email}`,
+        });
+      }
+      
+      clearCart();
+      navigate('/account');
+      
+    } catch (error) {
+      console.error('Erro no processamento da compra:', error);
+      toast({
+        title: "Erro na compra",
+        description: "Houve um problema ao processar sua compra. Tente novamente.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const total = getTotalPrice();
@@ -186,13 +218,30 @@ export function Checkout() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-foreground">Nome completo</Label>
+              <Label htmlFor="email" className="text-foreground">Email para entrega *</Label>
+              <Select value={formData.email} onValueChange={(value) => handleInputChange('email', value)}>
+                <SelectTrigger className="bg-background border-border">
+                  <SelectValue placeholder="Selecione um email" />
+                </SelectTrigger>
+                <SelectContent>
+                  {emailOptions.map((email) => (
+                    <SelectItem key={email} value={email}>
+                      {email}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-foreground">Nome completo *</Label>
               <Input 
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 placeholder="Seu nome completo"
                 className="bg-background border-border"
+                required
               />
             </div>
             
@@ -218,7 +267,7 @@ export function Checkout() {
               />
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-2 md:col-span-2">
               <Label htmlFor="address" className="text-foreground">Endereço</Label>
               <Input 
                 id="address"
