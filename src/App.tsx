@@ -9,7 +9,7 @@ import { Account } from "./pages/Account";
 import { Settings } from "./pages/Settings";
 import { Support } from "./pages/Support";
 import { Language } from "./pages/Language";
-import { NotFound } from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
