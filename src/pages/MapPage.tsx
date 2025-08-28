@@ -1,69 +1,121 @@
 
-import { GoogleMap } from "@/components/GoogleMap";
-import { InteractiveMap } from "@/components/InteractiveMap";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { LeafletMap } from "@/components/LeafletMap";
+import { MapPin, Phone, Clock, Star } from "lucide-react";
 
 export function MapPage() {
-  const [useInteractiveMap, setUseInteractiveMap] = useState(false);
+  const stores = [
+    {
+      id: 1,
+      name: "TRENDFY São Paulo",
+      address: "Rua Augusta, 123 - São Paulo, SP",
+      phone: "(11) 99999-9999",
+      hours: "09:00 - 18:00",
+      rating: 4.8
+    },
+    {
+      id: 2,
+      name: "TRENDFY Rio de Janeiro", 
+      address: "Av. Copacabana, 456 - Rio de Janeiro, RJ",
+      phone: "(21) 99999-9999",
+      hours: "09:00 - 18:00",
+      rating: 4.9
+    },
+    {
+      id: 3,
+      name: "TRENDFY Belo Horizonte",
+      address: "Rua da Bahia, 789 - Belo Horizonte, MG",
+      phone: "(31) 99999-9999", 
+      hours: "09:00 - 18:00",
+      rating: 4.7
+    },
+    {
+      id: 4,
+      name: "TRENDFY Brasília",
+      address: "SCS Quadra 1 - Brasília, DF",
+      phone: "(61) 99999-9999",
+      hours: "09:00 - 18:00", 
+      rating: 4.6
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <div className="bg-gradient-primary p-6 text-white">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">TRENDFY</h1>
-          <h2 className="text-xl font-semibold">Map</h2>
-        </div>
+        <h1 className="text-2xl font-bold mb-2">Nossas Lojas</h1>
+        <p className="text-white/80">Encontre a loja TRENDFY mais próxima de você</p>
       </div>
 
-      <div className="p-6 space-y-6">
-        {/* Map Options */}
-        <div className="grid grid-cols-2 gap-4">
-          <Card className="p-4 bg-gradient-card shadow-card border-border/50">
-            <div className="flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-primary" />
-              <div>
-                <h4 className="font-semibold text-foreground">Centro SP</h4>
-                <p className="text-sm text-muted-foreground">Região central</p>
+      {/* Map */}
+      <div className="p-4">
+        <LeafletMap />
+      </div>
+
+      {/* Store List */}
+      <div className="p-4 space-y-4">
+        <h2 className="text-xl font-bold text-foreground">Todas as Lojas</h2>
+        
+        {stores.map((store) => (
+          <Card key={store.id} className="p-4 bg-card border-border shadow-card">
+            <div className="flex justify-between items-start mb-3">
+              <h3 className="font-bold text-lg text-foreground">{store.name}</h3>
+              <Badge variant="secondary" className="flex items-center gap-1">
+                <Star className="w-3 h-3 fill-current" />
+                {store.rating}
+              </Badge>
+            </div>
+            
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <MapPin className="w-4 h-4" />
+                {store.address}
+              </div>
+              
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Phone className="w-4 h-4" />
+                {store.phone}
+              </div>
+              
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Clock className="w-4 h-4" />
+                {store.hours}
               </div>
             </div>
-          </Card>
-          
-          <Card className="p-4 bg-gradient-card shadow-card border-border/50">
-            <div className="flex items-center gap-3">
-              <Navigation className="w-5 h-5 text-accent" />
-              <div>
-                <h4 className="font-semibold text-foreground">Navegação</h4>
-                <p className="text-sm text-muted-foreground">Rotas disponíveis</p>
-              </div>
+            
+            <div className="flex gap-2 mt-4">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.open(`tel:${store.phone}`)}
+                className="flex-1"
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                Ligar
+              </Button>
+              
+              <Button 
+                variant="default"
+                size="sm" 
+                onClick={() => {
+                  const storeCoords = {
+                    1: "-23.5505,-46.6333",
+                    2: "-22.9068,-43.1729", 
+                    3: "-19.9167,-43.9345",
+                    4: "-15.8267,-47.9218"
+                  };
+                  window.open(`https://www.google.com/maps/dir/?api=1&destination=${storeCoords[store.id as keyof typeof storeCoords]}`, '_blank');
+                }}
+                className="flex-1"
+              >
+                <MapPin className="w-4 h-4 mr-2" />
+                Direções
+              </Button>
             </div>
           </Card>
-        </div>
-
-        {/* Map Type Selector */}
-        <Card className="p-4 bg-gradient-card shadow-card border-border/50">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-semibold text-foreground">Tipo de Mapa</h3>
-              <p className="text-sm text-muted-foreground">
-                {useInteractiveMap ? "Mapa interativo com Mapbox" : "Mapa integrado do Google"}
-              </p>
-            </div>
-            <Button
-              onClick={() => setUseInteractiveMap(!useInteractiveMap)}
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-white"
-            >
-              {useInteractiveMap ? "Usar Google Maps" : "Mapa Interativo"}
-            </Button>
-          </div>
-        </Card>
-
-        {/* Map Component */}
-        {useInteractiveMap ? <InteractiveMap /> : <GoogleMap />}
+        ))}
       </div>
     </div>
   );
