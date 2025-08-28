@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -109,7 +110,7 @@ export function AIChat() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-160px)] bg-gradient-card rounded-lg shadow-card border border-border/50 mx-4 mb-4">
+    <div className="flex flex-col h-[calc(100vh-160px)] bg-card rounded-lg shadow-card border border-border/50 mx-4 mb-4">
       {/* Chat Header */}
       <div className="p-4 border-b border-border bg-gradient-primary rounded-t-lg">
         <div className="flex items-center justify-between">
@@ -136,7 +137,7 @@ export function AIChat() {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-background/50" ref={messagesEndRef}>
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-background" ref={messagesEndRef}>
         {messages.length === 0 && (
           <div className="text-center text-muted-foreground py-8">
             <Bot className="w-12 h-12 mx-auto mb-4 text-primary/50" />
@@ -162,11 +163,11 @@ export function AIChat() {
               className={`max-w-[75%] rounded-xl p-4 shadow-sm ${
                 message.isUser
                   ? "bg-gradient-primary text-white"
-                  : "bg-gradient-card text-foreground border border-border/50"
+                  : "bg-card text-card-foreground border border-border/50"
               }`}
             >
               <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.text}</p>
-              <span className="text-xs opacity-70 mt-2 block">
+              <span className={`text-xs opacity-70 mt-2 block ${message.isUser ? 'text-white/70' : 'text-muted-foreground'}`}>
                 {message.timestamp.toLocaleTimeString('pt-BR', { 
                   hour: '2-digit', 
                   minute: '2-digit' 
@@ -187,7 +188,7 @@ export function AIChat() {
             <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow">
               <Bot className="w-4 h-4 text-white" />
             </div>
-            <div className="bg-gradient-card text-foreground border border-border/50 rounded-xl p-4 shadow-sm">
+            <div className="bg-card text-card-foreground border border-border/50 rounded-xl p-4 shadow-sm">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
@@ -202,7 +203,7 @@ export function AIChat() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-border bg-white/80 backdrop-blur-sm p-4 rounded-b-lg">
+      <div className="border-t border-border bg-background p-4 rounded-b-lg">
         <div className="flex gap-3">
           <div className="flex-1 relative">
             <Input
@@ -210,7 +211,7 @@ export function AIChat() {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
               placeholder="Pergunte sobre moda, tendências, dicas de estilo..."
-              className="pl-4 pr-12 py-3 rounded-xl border-border/50 focus:border-primary bg-white"
+              className="pl-4 pr-12 py-3 rounded-xl border-border/50 focus:border-primary bg-background text-foreground"
               disabled={isLoading}
             />
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">

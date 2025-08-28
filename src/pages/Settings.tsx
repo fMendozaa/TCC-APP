@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,9 +13,9 @@ import {
   Bell, 
   Shield, 
   Moon, 
+  Sun,
   Globe, 
   Volume2, 
-  Smartphone,
   CreditCard,
   User,
   Lock,
@@ -30,32 +31,32 @@ const colorThemes = [
   { 
     id: 'default', 
     name: 'TRENDFY Original', 
-    primary: '240 100% 65%, 280 80% 60%',
-    accent: '280 80% 60%, 320 60% 70%'
+    primary: 'hsl(240, 100%, 65%)',
+    secondary: 'hsl(280, 80%, 60%)'
   },
   { 
     id: 'ocean', 
     name: 'Ocean Blue', 
-    primary: '210 100% 65%, 215 80% 60%',
-    accent: '185 80% 60%, 195 70% 65%'
+    primary: 'hsl(210, 100%, 65%)',
+    secondary: 'hsl(185, 80%, 60%)'
   },
   { 
     id: 'sunset', 
     name: 'Sunset Orange', 
-    primary: '15 100% 60%, 5 85% 55%',
-    accent: '45 100% 65%, 25 95% 60%'
+    primary: 'hsl(15, 100%, 60%)',
+    secondary: 'hsl(45, 100%, 65%)'
   },
   { 
     id: 'forest', 
     name: 'Forest Green', 
-    primary: '140 70% 45%, 155 75% 50%',
-    accent: '125 65% 55%, 135 70% 50%'
+    primary: 'hsl(140, 70%, 45%)',
+    secondary: 'hsl(125, 65%, 55%)'
   },
   { 
     id: 'royal', 
     name: 'Royal Purple', 
-    primary: '270 85% 65%, 260 80% 60%',
-    accent: '245 75% 65%, 255 70% 60%'
+    primary: 'hsl(270, 85%, 65%)',
+    secondary: 'hsl(245, 75%, 65%)'
   }
 ];
 
@@ -76,31 +77,54 @@ export function Settings() {
     };
   });
 
+  // Apply theme on component mount
+  useEffect(() => {
+    applyTheme(settings.colorTheme);
+    applyDarkMode(settings.darkMode);
+  }, []);
+
+  const applyTheme = (themeId: string) => {
+    const theme = colorThemes.find(t => t.id === themeId);
+    if (theme) {
+      const root = document.documentElement;
+      root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})`);
+      root.style.setProperty('--gradient-accent', `linear-gradient(135deg, ${theme.secondary}, ${theme.primary})`);
+    }
+  };
+
+  const applyDarkMode = (isDark: boolean) => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  };
+
   const handleSettingChange = (key: string, value: boolean | string) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     localStorage.setItem('trendfy-settings', JSON.stringify(newSettings));
     
     if (key === 'colorTheme') {
-      // Aplicar tema de cor
+      applyTheme(value as string);
       const theme = colorThemes.find(t => t.id === value);
-      if (theme) {
-        const root = document.documentElement;
-        const [primaryStart, primaryEnd] = theme.primary.split(', ');
-        const [accentStart, accentEnd] = theme.accent.split(', ');
-        
-        root.style.setProperty('--gradient-primary', `linear-gradient(135deg, hsl(${primaryStart}), hsl(${primaryEnd}))`);
-        root.style.setProperty('--gradient-accent', `linear-gradient(135deg, hsl(${accentStart}), hsl(${accentEnd}))`);
-        root.style.setProperty('--brand-blue', primaryStart);
-        root.style.setProperty('--brand-purple', primaryEnd);
-        root.style.setProperty('--brand-pink', accentEnd);
-      }
+      toast({
+        title: "Tema atualizado! ✅",
+        description: `Tema ${theme?.name} aplicado`,
+      });
+    } else if (key === 'darkMode') {
+      applyDarkMode(value as boolean);
+      toast({
+        title: "Modo de exibição alterado! ✅",
+        description: value ? "Modo escuro ativado" : "Modo claro ativado",
+      });
+    } else {
+      toast({
+        title: "Configuração atualizada! ✅",
+        description: "Suas preferências foram salvas",
+      });
     }
-    
-    toast({
-      title: "Configuração atualizada! ✅",
-      description: key === 'colorTheme' ? `Tema ${colorThemes.find(t => t.id === value)?.name} aplicado` : "Suas preferências foram salvas",
-    });
   };
 
   const settingsGroups = [
@@ -112,7 +136,8 @@ export function Settings() {
           key: "darkMode", 
           label: "Modo escuro", 
           value: settings.darkMode, 
-          type: "switch" as const 
+          type: "switch" as const,
+          icon: settings.darkMode ? Moon : Sun
         },
         { 
           key: "colorTheme", 
@@ -152,8 +177,8 @@ export function Settings() {
     { icon: User, label: "Informações da Conta", action: () => navigate('/account') },
     { icon: CreditCard, label: "Métodos de Pagamento", action: () => toast({ title: "Em breve!", description: "Funcionalidade sendo desenvolvida" }) },
     { icon: Lock, label: "Privacidade", action: () => toast({ title: "Configurações de privacidade", description: "Suas informações estão protegidas" }) },
-    { icon: Globe, label: "Idioma e Região", action: () => toast({ title: "Idioma: Português (BR)", description: "Outros idiomas em breve" }) },
-    { icon: HelpCircle, label: "Ajuda e Suporte", action: () => toast({ title: "Suporte TRENDFY", description: "Entre em contato: suporte@trendfy.com" }) },
+    { icon: Globe, label: "Idioma e Região", action: () => navigate('/language') },
+    { icon: HelpCircle, label: "Ajuda e Suporte", action: () => navigate('/support') },
     { icon: LogOut, label: "Sair da Conta", action: () => toast({ title: "Logout realizado", description: "Até logo!" }), danger: true }
   ];
 
@@ -186,18 +211,21 @@ export function Settings() {
 
         {/* Settings Groups */}
         {settingsGroups.map((group, groupIndex) => (
-          <Card key={groupIndex} className="p-6 bg-gradient-card shadow-card border-border/50">
+          <Card key={groupIndex} className="p-6 bg-card shadow-card border-border/50">
             <div className="flex items-center gap-3 mb-4">
               <group.icon className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-semibold text-foreground">{group.title}</h3>
+              <h3 className="text-lg font-semibold text-card-foreground">{group.title}</h3>
             </div>
             
             <div className="space-y-4">
               {group.items.map((item, itemIndex) => (
                 <div key={itemIndex} className="flex items-center justify-between">
-                  <Label htmlFor={item.key} className="text-foreground font-medium cursor-pointer">
-                    {item.label}
-                  </Label>
+                  <div className="flex items-center gap-2">
+                    {item.icon && <item.icon className="w-4 h-4 text-muted-foreground" />}
+                    <Label htmlFor={item.key} className="text-card-foreground font-medium cursor-pointer">
+                      {item.label}
+                    </Label>
+                  </div>
                   
                   {item.type === "switch" ? (
                     <Switch 
@@ -218,11 +246,11 @@ export function Settings() {
                               <div 
                                 className="w-4 h-4 rounded"
                                 style={{
-                                  background: `linear-gradient(135deg, hsl(${option.primary.split(', ')[0]}), hsl(${option.primary.split(', ')[1]}))`
+                                  background: `linear-gradient(135deg, ${option.primary}, ${option.secondary})`
                                 }}
                               ></div>
                               {option.name}
-                              {settings.colorTheme === option.id && <Check className="w-4 h-4 text-primary" />}
+                              {settings.colorTheme === option.id && <Check className="w-4 h-4 text-primary ml-2" />}
                             </div>
                           </SelectItem>
                         ))}
@@ -236,7 +264,7 @@ export function Settings() {
         ))}
 
         {/* Menu Items */}
-        <Card className="p-0 bg-gradient-card shadow-card border-border/50 overflow-hidden">
+        <Card className="p-0 bg-card shadow-card border-border/50 overflow-hidden">
           <div className="space-y-0">
             {menuItems.map((item, index) => (
               <div key={index}>
@@ -247,7 +275,7 @@ export function Settings() {
                   }`}
                 >
                   <item.icon className={`w-5 h-5 ${item.danger ? 'text-red-500' : 'text-muted-foreground'}`} />
-                  <span className={`font-medium ${item.danger ? 'text-red-500' : 'text-foreground'}`}>
+                  <span className={`font-medium ${item.danger ? 'text-red-500' : 'text-card-foreground'}`}>
                     {item.label}
                   </span>
                   <div className="ml-auto w-2 h-2 bg-primary rounded-full"></div>
@@ -259,8 +287,8 @@ export function Settings() {
         </Card>
 
         {/* App Info */}
-        <Card className="p-6 bg-gradient-card shadow-card border-border/50 text-center">
-          <h3 className="text-lg font-semibold text-foreground mb-2">TRENDFY</h3>
+        <Card className="p-6 bg-card shadow-card border-border/50 text-center">
+          <h3 className="text-lg font-semibold text-card-foreground mb-2">TRENDFY</h3>
           <p className="text-muted-foreground text-sm mb-1">Versão 1.0.0</p>
           <p className="text-muted-foreground text-xs">© 2025 TRENDFY. Todos os direitos reservados.</p>
         </Card>
