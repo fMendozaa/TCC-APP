@@ -110,9 +110,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "TRENDFY <onboarding@resend.dev>",
-      to: [to],
-      subject: subject,
-      html: emailContent,
+      to: ["fabriciosono596@gmail.com"], // Usando email verificado do Resend
+      subject: `${subject} - Para: ${to}`,
+      html: emailContent + `<p><strong>Email original destino:</strong> ${to}</p>`,
     });
 
     console.log("Email sent successfully:", emailResponse);

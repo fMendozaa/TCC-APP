@@ -31,12 +31,6 @@ export function Checkout() {
     cardName: ''
   });
 
-  const [emailOptions] = useState([
-    'bheghost12@gmail.com',
-    'cliente@teste.com',
-    'usuario@exemplo.com',
-    'comprador@demo.com'
-  ]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -219,18 +213,15 @@ export function Checkout() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground">Email para entrega *</Label>
-              <Select value={formData.email} onValueChange={(value) => handleInputChange('email', value)}>
-                <SelectTrigger className="bg-background border-border">
-                  <SelectValue placeholder="Selecione um email" />
-                </SelectTrigger>
-                <SelectContent>
-                  {emailOptions.map((email) => (
-                    <SelectItem key={email} value={email}>
-                      {email}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Input 
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleInputChange('email', e.target.value)}
+                placeholder="Digite seu email"
+                className="bg-background border-border"
+                required
+              />
             </div>
             
             <div className="space-y-2">
