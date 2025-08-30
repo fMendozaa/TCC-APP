@@ -30,6 +30,9 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Small delay to prevent spam
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     const { to, subject, html, text, type, customerName, orderDetails }: EmailRequest = await req.json();
 
     console.log("Sending email to:", to, "Subject:", subject, "Type:", type);
@@ -98,12 +101,72 @@ const handler = async (req: Request): Promise<Response> => {
         </div>
       `;
     } else {
-      // Default email template
+      // Beautiful confirmation email template
       emailContent = html || `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333;">TRENDFY</h1>
-          <p>Olá ${customerName || 'Cliente'},</p>
-          <p>Esta é uma notificação do TRENDFY.</p>
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc;">
+          <!-- Header with gradient -->
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center; border-radius: 16px 16px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 36px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+              ✨ TRENDFY
+            </h1>
+            <p style="color: rgba(255,255,255,0.95); margin: 12px 0 0 0; font-size: 18px; font-weight: 300;">
+              Confirmação de Email
+            </p>
+          </div>
+          
+          <!-- Main content -->
+          <div style="background: white; padding: 40px 30px; border-radius: 0 0 16px 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+            <div style="text-align: center; margin-bottom: 30px;">
+              <div style="background: linear-gradient(135deg, #667eea, #764ba2); width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);">
+                <span style="font-size: 40px;">📧</span>
+              </div>
+            </div>
+            
+            <h2 style="color: #1a202c; margin: 0 0 24px 0; font-size: 28px; text-align: center; font-weight: 600;">
+              Olá, ${customerName || 'Cliente'}! 👋
+            </h2>
+            
+            <p style="color: #4a5568; line-height: 1.7; font-size: 16px; margin: 0 0 24px 0; text-align: center;">
+              Seu email foi confirmado com sucesso! Agora você está conectado ao mundo da moda e estilo da 
+              <strong style="color: #667eea;">TRENDFY</strong>.
+            </p>
+            
+            <!-- Features section -->
+            <div style="background: linear-gradient(135deg, #f7fafc, #edf2f7); padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 4px solid #667eea;">
+              <h3 style="color: #2d3748; margin: 0 0 16px 0; font-size: 18px; font-weight: 600;">🎉 O que você pode fazer agora:</h3>
+              <ul style="color: #4a5568; margin: 0; padding-left: 20px; line-height: 1.6;">
+                <li style="margin-bottom: 8px;">🛍️ Explorar nossa coleção exclusiva</li>
+                <li style="margin-bottom: 8px;">💖 Salvar seus favoritos</li>
+                <li style="margin-bottom: 8px;">🚚 Receber atualizações sobre entregas</li>
+                <li style="margin-bottom: 8px;">✨ Descobrir tendências em primeira mão</li>
+              </ul>
+            </div>
+            
+            <!-- CTA Button -->
+            <div style="text-align: center; margin: 35px 0;">
+              <a href="#" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 16px 32px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; display: inline-block; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); transition: all 0.3s ease;">
+                🚀 Começar a Comprar
+              </a>
+            </div>
+            
+            <!-- Social proof -->
+            <div style="background: linear-gradient(135deg, #f0fff4, #f7fafc); padding: 20px; border-radius: 12px; margin: 30px 0; text-align: center; border: 1px solid #e2e8f0;">
+              <p style="color: #4a5568; margin: 0; font-size: 14px; line-height: 1.5;">
+                <strong style="color: #667eea;">+10.000</strong> pessoas já confiam na TRENDFY para suas compras de moda ❤️
+              </p>
+            </div>
+            
+            <!-- Footer -->
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; margin-top: 35px; text-align: center;">
+              <p style="color: #a0aec0; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">
+                TRENDFY - Onde estilo encontra tecnologia<br>
+                Transformando a forma como você compra moda
+              </p>
+              <p style="color: #cbd5e0; font-size: 12px; margin: 0;">
+                © 2025 TRENDFY. Todos os direitos reservados.
+              </p>
+            </div>
+          </div>
         </div>
       `;
     }
