@@ -37,7 +37,12 @@ export function Checkout() {
   };
 
   const handlePurchase = async () => {
+    console.log('🛒 Iniciando processo de compra...');
+    console.log('📦 Itens no carrinho:', items);
+    console.log('📋 Dados do formulário:', formData);
+    
     if (!formData.email || !formData.name) {
+      console.log('❌ Campos obrigatórios não preenchidos');
       toast({
         title: "Campos obrigatórios",
         description: "Por favor, preencha o email e nome para continuar.",
@@ -49,6 +54,7 @@ export function Checkout() {
     setIsProcessing(true);
     
     try {
+      console.log('⏱️ Simulando processamento de pagamento...');
       // Simular processamento de pagamento
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -61,9 +67,12 @@ export function Checkout() {
         customerName: formData.name
       };
       
+      console.log('📧 Enviando email com dados:', orderData);
+      
       // Chamar função de envio de email
       const { supabase } = await import("@/integrations/supabase/client");
       
+      console.log('📤 Chamando edge function send-email...');
       const emailResponse = await supabase.functions.invoke('send-email', {
         body: {
           to: formData.email,
@@ -78,20 +87,24 @@ export function Checkout() {
         }
       });
 
+      console.log('📧 Resposta do email:', emailResponse);
+      
       if (emailResponse.error) {
-        console.error('Erro ao enviar email:', emailResponse.error);
+        console.error('❌ Erro ao enviar email:', emailResponse.error);
         toast({
           title: "Email não enviado",
           description: "Compra realizada, mas houve um problema ao enviar o email de confirmação.",
           variant: "destructive"
         });
       } else {
+        console.log('✅ Email enviado com sucesso!');
         toast({
           title: "Compra realizada com sucesso! 🎉",
           description: `Email de confirmação enviado para ${formData.email}`,
         });
       }
       
+      console.log('🧹 Limpando carrinho...');
       clearCart();
       navigate('/account');
       
