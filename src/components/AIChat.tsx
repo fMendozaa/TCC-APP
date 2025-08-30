@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Send, Trash2, Bot, User } from "lucide-react";
-import OpenAI from 'openai';
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: string;
@@ -44,34 +44,21 @@ export function AIChat() {
     setIsLoading(true);
 
     try {
-      const openai = new OpenAI({
-        apiKey: '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',
-        dangerouslyAllowBrowser: true
-      });
-
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: "Você é uma IA especialista em moda e tendências chamada TrendFy AI. Seja amigável, criativa e dê sugestões práticas sobre moda, estilo, combinações de roupas e tendências atuais. Use emojis ocasionalmente para ser mais expressiva. Responda sempre em português."
-          },
-          ...messages.slice(-5).map(msg => ({
+      const { data, error } = await supabase.functions.invoke('ai-chat', {
+        body: {
+          messages: messages.slice(-5).map(msg => ({
             role: msg.isUser ? "user" as const : "assistant" as const,
             content: msg.text
           })),
-          {
-            role: "user",
-            content: text
-          }
-        ],
-        temperature: 0.8,
-        max_tokens: 500
+          text
+        }
       });
+
+      if (error) throw error;
 
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: response.choices[0]?.message?.content || "Desculpe, não consegui processar sua mensagem. Tente novamente!",
+        text: data.text || "Desculpe, não consegui processar sua mensagem. Tente novamente!",
         isUser: false,
         timestamp: new Date()
       };

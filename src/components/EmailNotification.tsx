@@ -29,9 +29,10 @@ export function EmailNotification() {
       // Chama a edge function
       const { data, error } = await supabase.functions.invoke('send-email', {
         body: { 
-          email, 
-          name, 
-          type: 'confirmation' 
+          to: email,
+          subject: 'Confirmação de Email - TRENDFY',
+          type: 'confirmation',
+          customerName: name
         }
       });
 
