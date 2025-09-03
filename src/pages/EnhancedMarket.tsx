@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, ShoppingCart, ShoppingBag, Plus, Minus, Filter, Star } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { ProductCard } from "@/components/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 

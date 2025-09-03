@@ -97,11 +97,39 @@ export function Checkout() {
           variant: "destructive"
         });
       } else {
-        console.log('✅ Email enviado com sucesso!');
+      console.log('✅ Email enviado com sucesso!');
         toast({
           title: "Compra realizada com sucesso! 🎉",
           description: `Email de confirmação enviado para ${formData.email}`,
         });
+      }
+
+      // Salvar pedido no banco de dados
+      console.log('💾 Salvando pedido no banco...');
+      try {
+        const { supabase } = await import("@/integrations/supabase/client");
+        
+        const orderData = {
+          user_id: 'user-demo-123', // ID do usuário demo
+          customer_name: formData.name,
+          customer_email: formData.email,
+          total_amount: finalTotal,
+          currency: localStorage.getItem('trendfy-region') === 'US' ? 'USD' : 'BRL',
+          status: 'completed',
+          items: JSON.parse(JSON.stringify(items)) // Converter para JSON
+        };
+
+        const { error: orderError } = await supabase
+          .from('orders')
+          .insert(orderData);
+
+        if (orderError) {
+          console.error('❌ Erro ao salvar pedido:', orderError);
+        } else {
+          console.log('✅ Pedido salvo com sucesso!');
+        }
+      } catch (error) {
+        console.error('❌ Erro ao salvar pedido:', error);
       }
       
       console.log('🧹 Limpando carrinho...');

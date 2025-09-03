@@ -9,6 +9,8 @@ import { Account } from "./pages/Account";
 import { Settings } from "./pages/Settings";
 import { Support } from "./pages/Support";
 import { Language } from "./pages/Language";
+import { OrderHistory } from "./pages/OrderHistory";
+import { Favorites } from "./pages/Favorites";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/support" element={<Support />} />
           <Route path="/language" element={<Language />} />
+          <Route path="/orders" element={<OrderHistory />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
