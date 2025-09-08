@@ -112,7 +112,7 @@ export function Checkout() {
         const { supabase } = await import("@/integrations/supabase/client");
         
         const orderData = {
-          user_id: 'user-demo-123', // ID do usuário demo
+          user_id: '550e8400-e29b-41d4-a716-446655440000', // ID do usuário demo com UUID válido
           customer_name: formData.name,
           customer_email: formData.email,
           total_amount: finalTotal,

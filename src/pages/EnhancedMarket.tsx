@@ -9,6 +9,8 @@ import { useCartStore } from "@/stores/cartStore";
 import { ProductCard } from "@/components/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useCurrency } from "@/hooks/useCurrency";
+import { useFavorites } from "@/hooks/useFavorites";
 import { CurrencySelector } from "@/components/CurrencySelector";
 
 const products = [
@@ -171,6 +173,7 @@ export function EnhancedMarket() {
   const [quantities, setQuantities] = useState<{[key: number]: number}>({});
   const [searchResults, setSearchResults] = useState(products);
   const { addItem, items } = useCartStore();
+  const { formatPrice, convertPrice } = useCurrency();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -214,12 +217,14 @@ export function EnhancedMarket() {
 
   const handleAddToCart = (product: typeof products[0]) => {
     const quantity = quantities[product.id] || 1;
+    const convertedPrice = convertPrice(product.priceValue);
+    
     for (let i = 0; i < quantity; i++) {
       addItem({
         id: product.id,
         name: product.name,
-        price: product.price,
-        priceValue: product.priceValue,
+        price: formatPrice(convertedPrice),
+        priceValue: convertedPrice,
         image: product.image
       });
     }
@@ -359,7 +364,7 @@ export function EnhancedMarket() {
                         <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
                         <span className="text-sm text-muted-foreground">{product.rating}</span>
                       </div>
-                      <p className="text-lg font-bold text-primary">{product.price}</p>
+                      <p className="text-lg font-bold text-primary">{formatPrice(convertPrice(product.priceValue))}</p>
                     </div>
                   </div>
 

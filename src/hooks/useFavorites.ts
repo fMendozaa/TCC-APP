@@ -18,8 +18,8 @@ export function useFavorites() {
 
   // Verificar se usuário está logado (simulado)
   const getUserId = () => {
-    // Por enquanto vamos usar um ID fixo simulado
-    return 'user-demo-123';
+    // UUID válido para usuário demo
+    return '550e8400-e29b-41d4-a716-446655440000';
   };
 
   const loadFavorites = async () => {
