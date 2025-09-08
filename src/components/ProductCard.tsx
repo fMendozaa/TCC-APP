@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 interface Product {
-  id: string;
+  id: number | string;
   name: string;
   price: number;
   image: string;
@@ -31,8 +31,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
   const handleAddToCart = () => {
     const convertedPrice = convertPrice(product.price);
+    const productId = typeof product.id === 'string' ? parseInt(product.id) : product.id;
+    
     addItem({
-      id: parseInt(product.id) || Math.floor(Math.random() * 10000),
+      id: productId || Math.floor(Math.random() * 10000),
       name: product.name,
       price: formatPrice(convertedPrice),
       priceValue: convertedPrice,
@@ -47,12 +49,13 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
   const handleToggleFavorite = async () => {
     const convertedPrice = convertPrice(product.price);
+    const productIdStr = String(product.id);
     
-    if (isFavorite(product.id)) {
-      await removeFromFavorites(product.id);
+    if (isFavorite(productIdStr)) {
+      await removeFromFavorites(productIdStr);
     } else {
       await addToFavorites({
-        id: product.id,
+        id: productIdStr,
         name: product.name,
         image: product.image,
         price: convertedPrice
@@ -88,12 +91,12 @@ export function ProductCard({ product, className }: ProductCardProps) {
           onClick={handleToggleFavorite}
           className={cn(
             "absolute top-2 right-2 bg-white/80 hover:bg-white transition-colors",
-            isFavorite(product.id) 
+            isFavorite(String(product.id)) 
               ? "text-red-500 hover:text-red-600" 
               : "text-muted-foreground hover:text-red-500"
           )}
         >
-          <Heart className={cn("w-4 h-4", isFavorite(product.id) && "fill-current")} />
+          <Heart className={cn("w-4 h-4", isFavorite(String(product.id)) && "fill-current")} />
         </Button>
         
         {product.category && (
