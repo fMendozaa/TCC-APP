@@ -9,6 +9,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { ProductCard } from "@/components/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 const products = [
   {
@@ -241,6 +242,7 @@ export function EnhancedMarket() {
           <h1 className="text-2xl font-bold">TRENDFY</h1>
           <div className="flex items-center gap-4">
             <h2 className="text-xl font-semibold">Market</h2>
+            <CurrencySelector />
             <Button 
               variant="ghost" 
               size="sm"

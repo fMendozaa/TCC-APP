@@ -7,12 +7,12 @@ export interface CurrencyConfig {
 }
 
 const currencyMap: Record<string, CurrencyConfig> = {
-  'BR': { code: 'BRL', symbol: 'R$', name: 'Real' },
-  'US': { code: 'USD', symbol: '$', name: 'Dollar' },
-  'ES': { code: 'EUR', symbol: '€', name: 'Euro' },
-  'FR': { code: 'EUR', symbol: '€', name: 'Euro' },
-  'IT': { code: 'EUR', symbol: '€', name: 'Euro' },
-  'DE': { code: 'EUR', symbol: '€', name: 'Euro' }
+  'BR': { code: 'BRL', symbol: 'R$', name: 'Real Brasileiro' },
+  'US': { code: 'USD', symbol: '$', name: 'Dólar Americano' },
+  'EU': { code: 'EUR', symbol: '€', name: 'Euro' },
+  'UK': { code: 'GBP', symbol: '£', name: 'Libra Esterlina' },
+  'JP': { code: 'JPY', symbol: '¥', name: 'Iene Japonês' },
+  'CA': { code: 'CAD', symbol: 'C$', name: 'Dólar Canadense' }
 };
 
 export function useCurrency() {
@@ -32,14 +32,14 @@ export function useCurrency() {
   };
 
   const convertPrice = (basePrice: number, fromRegion: string = 'BR') => {
-    // Conversão simplificada para demo
+    // Taxas de conversão simuladas para demonstração
     const rates: Record<string, number> = {
-      'BR': 1,
-      'US': 0.18, // 1 BRL = ~0.18 USD
-      'ES': 0.17, // 1 BRL = ~0.17 EUR
-      'FR': 0.17,
-      'IT': 0.17,
-      'DE': 0.17
+      'BR': 1,     // Real (base)
+      'US': 0.18,  // Dólar
+      'EU': 0.17,  // Euro  
+      'UK': 0.15,  // Libra
+      'JP': 26.8,  // Iene
+      'CA': 0.24   // Dólar Canadense
     };
 
     const savedRegion = localStorage.getItem('trendfy-region') || 'BR';
@@ -48,9 +48,15 @@ export function useCurrency() {
     return basePrice * rate;
   };
 
+  const changeRegion = (region: string) => {
+    localStorage.setItem('trendfy-region', region);
+    setCurrency(currencyMap[region] || currencyMap['BR']);
+  };
+
   return {
     currency,
     formatPrice,
-    convertPrice
+    convertPrice,
+    changeRegion
   };
 }

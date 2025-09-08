@@ -9,11 +9,13 @@ import { ArrowLeft, CreditCard, Truck, Shield } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useCurrency } from "@/hooks/useCurrency";
 
 export function Checkout() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { items, getTotalPrice, clearCart } = useCartStore();
+  const { currency, formatPrice, convertPrice } = useCurrency();
   const [isProcessing, setIsProcessing] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -114,7 +116,7 @@ export function Checkout() {
           customer_name: formData.name,
           customer_email: formData.email,
           total_amount: finalTotal,
-          currency: localStorage.getItem('trendfy-region') === 'US' ? 'USD' : 'BRL',
+          currency: currency.code,
           status: 'completed',
           items: JSON.parse(JSON.stringify(items)) // Converter para JSON
         };
@@ -149,7 +151,7 @@ export function Checkout() {
   };
 
   const total = getTotalPrice();
-  const shipping = 15.90;
+  const shipping = convertPrice(15.90);
   const finalTotal = total + shipping;
 
   if (items.length === 0) {
@@ -220,7 +222,7 @@ export function Checkout() {
                   </div>
                 </div>
                 <p className="text-primary font-semibold">
-                  R$ {(item.priceValue * item.quantity).toFixed(2)}
+                  {formatPrice(item.priceValue * item.quantity)}
                 </p>
               </div>
             ))}
@@ -231,15 +233,15 @@ export function Checkout() {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Subtotal:</span>
-              <span className="text-foreground">R$ {total.toFixed(2)}</span>
+              <span className="text-foreground">{formatPrice(total)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Frete:</span>
-              <span className="text-foreground">R$ {shipping.toFixed(2)}</span>
+              <span className="text-foreground">{formatPrice(shipping)}</span>
             </div>
             <div className="flex justify-between text-lg font-semibold">
               <span className="text-foreground">Total:</span>
-              <span className="text-primary">R$ {finalTotal.toFixed(2)}</span>
+              <span className="text-primary">{formatPrice(finalTotal)}</span>
             </div>
           </div>
         </Card>
@@ -383,7 +385,7 @@ export function Checkout() {
           {isProcessing ? (
             <span>Processando pagamento...</span>
           ) : (
-            <span>Finalizar Compra - R$ {finalTotal.toFixed(2)}</span>
+            <span>Finalizar Compra - {formatPrice(finalTotal)}</span>
           )}
         </Button>
       </div>
