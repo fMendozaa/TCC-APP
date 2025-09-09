@@ -31,8 +31,8 @@ const colorThemes = [
   { 
     id: 'default', 
     name: 'FASTION Original', 
-    primary: 'hsl(270, 85%, 60%)',
-    secondary: 'hsl(290, 80%, 65%)'
+    primary: 'hsl(240, 100%, 65%)',
+    secondary: 'hsl(280, 80%, 60%)'
   },
   { 
     id: 'ocean', 
