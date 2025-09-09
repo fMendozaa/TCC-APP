@@ -86,7 +86,7 @@ const mockFollowers: User[] = [
 
 const mockFollowing: User[] = [
   {
-    id: "5",
+    id: "11",
     name: "Fabricio M",
     username: "fabricio",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
@@ -96,7 +96,7 @@ const mockFollowing: User[] = [
     followers: 24542
   },
   {
-    id: "6",
+    id: "12",
     name: "Rafael Ikeda",
     username: "rafaelikeda",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
