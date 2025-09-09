@@ -43,7 +43,7 @@ export function AppSidebar() {
       <SidebarContent className="bg-gradient-card">
         <div className="p-6">
           <h2 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            TRENDFY
+            FASTION
           </h2>
         </div>
 

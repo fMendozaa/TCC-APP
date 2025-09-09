@@ -45,8 +45,8 @@ export function EnhancedAccount() {
   const [isEditing, setIsEditing] = useState(false);
   
 const [profile, setProfile] = useState<UserProfile>({
-    name: "TRENDFY",
-    username: "trendfy",
+    name: "FASTION",
+    username: "fastion",
     bio: "Mais famoso app de trends",
     email: "bheghost12@gmail.com",
     phone: "(11) 99999-9999",
@@ -82,7 +82,7 @@ const [profile, setProfile] = useState<UserProfile>({
       {/* Header */}
       <div className="bg-gradient-primary p-6 text-white">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">TRENDFY</h1>
+          <h1 className="text-2xl font-bold">FASTION</h1>
           <h2 className="text-xl font-semibold">Perfil</h2>
         </div>
       </div>
@@ -227,7 +227,7 @@ const [profile, setProfile] = useState<UserProfile>({
           <div className="flex flex-wrap gap-2">
             <Badge className="bg-gradient-primary text-white">1#</Badge>
             <Badge className="bg-gradient-accent text-white">Oficial Account</Badge>
-            <Badge className="bg-brand-pink text-white">trendfy</Badge>
+            <Badge className="bg-brand-pink text-white">fastion</Badge>
           </div>
         </Card>
 

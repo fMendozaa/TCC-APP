@@ -40,12 +40,12 @@ export function Support() {
   const supportCategories = [
     { icon: Bug, title: "Reportar Bug", description: "Problemas técnicos ou funcionalidades que não funcionam" },
     { icon: HelpCircle, title: "Ajuda Geral", description: "Dúvidas sobre como usar o aplicativo" },
-    { icon: Star, title: "Sugestão", description: "Ideias para melhorar o TRENDFY" },
+    { icon: Star, title: "Sugestão", description: "Ideias para melhorar o FASTION" },
     { icon: FileText, title: "Outros", description: "Outras questões ou feedback" }
   ];
 
   const contactMethods = [
-    { icon: Mail, title: "Email", description: "suporte@trendfy.com", action: () => window.open('mailto:suporte@trendfy.com') },
+    { icon: Mail, title: "Email", description: "suporte@fastion.com", action: () => window.open('mailto:suporte@fastion.com') },
     { icon: MessageCircle, title: "Chat", description: "Chat ao vivo (9h às 18h)", action: () => toast({ title: "Chat em breve!", description: "Funcionalidade sendo implementada" }) },
     { icon: Phone, title: "Telefone", description: "+55 11 9999-9999", action: () => window.open('tel:+5511999999999') }
   ];

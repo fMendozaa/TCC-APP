@@ -17,7 +17,7 @@ export function AIChat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Olá! Sou a IA do TrendFy, especialista em moda e tendências! Como posso te ajudar hoje? Posso sugerir looks, combinar peças, falar sobre tendências atuais ou ajudar você a encontrar seu estilo pessoal! ✨',
+      text: 'Olá! Sou a IA do Fastion, especialista em moda e tendências! Como posso te ajudar hoje? Posso sugerir looks, combinar peças, falar sobre tendências atuais ou ajudar você a encontrar seu estilo pessoal! ✨',
       isUser: false,
       timestamp: new Date()
     }
@@ -89,7 +89,7 @@ export function AIChat() {
     setMessages([
       {
         id: '1',
-        text: 'Olá! Sou a IA do TrendFy, especialista em moda e tendências! Como posso te ajudar hoje? ✨',
+        text: 'Olá! Sou a IA do Fastion, especialista em moda e tendências! Como posso te ajudar hoje? ✨',
         isUser: false,
         timestamp: new Date()
       }
@@ -106,7 +106,7 @@ export function AIChat() {
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-white">TrendFy AI</h3>
+              <h3 className="font-semibold text-white">Fastion AI</h3>
               <p className="text-xs text-white/80">Especialista em Moda</p>
             </div>
           </div>
@@ -128,7 +128,7 @@ export function AIChat() {
         {messages.length === 0 && (
           <div className="text-center text-muted-foreground py-8">
             <Bot className="w-12 h-12 mx-auto mb-4 text-primary/50" />
-            <p className="text-lg font-medium mb-2">Olá! Sou a TrendFy AI</p>
+            <p className="text-lg font-medium mb-2">Olá! Sou a Fastion AI</p>
             <p className="text-sm">Estou aqui para ajudar com dicas de moda, tendências e estilo!</p>
           </div>
         )}
@@ -182,7 +182,7 @@ export function AIChat() {
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-100"></div>
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-200"></div>
                 </div>
-                <span className="text-xs text-muted-foreground">TrendFy AI está digitando...</span>
+                <span className="text-xs text-muted-foreground">Fastion AI está digitando...</span>
               </div>
             </div>
           </div>

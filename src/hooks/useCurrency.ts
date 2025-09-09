@@ -19,7 +19,7 @@ export function useCurrency() {
   const [currency, setCurrency] = useState<CurrencyConfig>(currencyMap['BR']);
 
   useEffect(() => {
-    const savedRegion = localStorage.getItem('trendfy-region') || 'BR';
+    const savedRegion = localStorage.getItem('fastion-region') || 'BR';
     setCurrency(currencyMap[savedRegion] || currencyMap['BR']);
   }, []);
 
@@ -42,14 +42,14 @@ export function useCurrency() {
       'CA': 0.24   // Dólar Canadense
     };
 
-    const savedRegion = localStorage.getItem('trendfy-region') || 'BR';
+    const savedRegion = localStorage.getItem('fastion-region') || 'BR';
     const rate = rates[savedRegion] || 1;
     
     return basePrice * rate;
   };
 
   const changeRegion = (region: string) => {
-    localStorage.setItem('trendfy-region', region);
+    localStorage.setItem('fastion-region', region);
     setCurrency(currencyMap[region] || currencyMap['BR']);
   };
 

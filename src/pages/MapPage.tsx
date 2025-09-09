@@ -9,7 +9,7 @@ export function MapPage() {
   const stores = [
     {
       id: 1,
-      name: "TRENDFY São Paulo",
+      name: "FASTION São Paulo",
       address: "Rua Augusta, 123 - São Paulo, SP",
       phone: "(11) 99999-9999",
       hours: "09:00 - 18:00",
@@ -17,7 +17,7 @@ export function MapPage() {
     },
     {
       id: 2,
-      name: "TRENDFY Rio de Janeiro", 
+      name: "FASTION Rio de Janeiro", 
       address: "Av. Copacabana, 456 - Rio de Janeiro, RJ",
       phone: "(21) 99999-9999",
       hours: "09:00 - 18:00",
@@ -25,7 +25,7 @@ export function MapPage() {
     },
     {
       id: 3,
-      name: "TRENDFY Belo Horizonte",
+      name: "FASTION Belo Horizonte",
       address: "Rua da Bahia, 789 - Belo Horizonte, MG",
       phone: "(31) 99999-9999", 
       hours: "09:00 - 18:00",
@@ -33,7 +33,7 @@ export function MapPage() {
     },
     {
       id: 4,
-      name: "TRENDFY Brasília",
+      name: "FASTION Brasília",
       address: "SCS Quadra 1 - Brasília, DF",
       phone: "(61) 99999-9999",
       hours: "09:00 - 18:00", 
@@ -46,7 +46,7 @@ export function MapPage() {
       {/* Header */}
       <div className="bg-gradient-primary p-6 text-white">
         <h1 className="text-2xl font-bold mb-2">Nossas Lojas</h1>
-        <p className="text-white/80">Encontre a loja TRENDFY mais próxima de você</p>
+        <p className="text-white/80">Encontre a loja FASTION mais próxima de você</p>
       </div>
 
       {/* Map */}

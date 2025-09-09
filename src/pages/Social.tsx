@@ -92,7 +92,7 @@ const mockFollowing: User[] = [
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
     isFollowing: true,
     isFollowingYou: false,
-    bio: "Fundador da TrendFy",
+    bio: "Fundador da Fastion",
     followers: 24542
   },
   {
@@ -103,7 +103,7 @@ const mockFollowing: User[] = [
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Fundador TrendFy",
+    bio: "Fundador Fastion",
     followers: 25753
   },
   {
@@ -114,7 +114,7 @@ const mockFollowing: User[] = [
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Fundador TrendFy",
+    bio: "Fundador Fastion",
     followers: 19737
   },
   {
@@ -125,7 +125,7 @@ const mockFollowing: User[] = [
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Fundador TrendFy",
+    bio: "Fundador Fastion",
     followers: 10104
   },
   {
@@ -136,7 +136,7 @@ const mockFollowing: User[] = [
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Fundadora TrendFy",
+    bio: "Fundadora Fastion",
     followers: 12321
   },
   {
@@ -147,7 +147,7 @@ const mockFollowing: User[] = [
     isFollowing: true,
     isFollowingYou: true,
     verified: true,
-    bio: "Fundadora TrendFy",
+    bio: "Fundadora Fastion",
     followers: 12312
   }
 ];
@@ -281,7 +281,7 @@ export function Social() {
         {/* Header */}
         <div className="bg-gradient-primary p-6 text-white">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">TRENDFY</h1>
+            <h1 className="text-2xl font-bold">FASTION</h1>
             <h2 className="text-xl font-semibold">Social</h2>
           </div>
           <p className="text-white/90">Descubra tendências e conecte-se</p>

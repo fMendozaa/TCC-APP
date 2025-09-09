@@ -30,7 +30,7 @@ import { useToast } from "@/hooks/use-toast";
 const colorThemes = [
   { 
     id: 'default', 
-    name: 'TRENDFY Original', 
+    name: 'FASTION Original', 
     primary: 'hsl(240, 100%, 65%)',
     secondary: 'hsl(280, 80%, 60%)'
   },
@@ -64,7 +64,7 @@ export function Settings() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [settings, setSettings] = useState(() => {
-    const saved = localStorage.getItem('trendfy-settings');
+    const saved = localStorage.getItem('fastion-settings');
     return saved ? JSON.parse(saved) : {
       notifications: true,
       darkMode: true,
@@ -104,7 +104,7 @@ export function Settings() {
   const handleSettingChange = (key: string, value: boolean | string) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
-    localStorage.setItem('trendfy-settings', JSON.stringify(newSettings));
+    localStorage.setItem('fastion-settings', JSON.stringify(newSettings));
     
     if (key === 'colorTheme') {
       applyTheme(value as string);
@@ -288,9 +288,9 @@ export function Settings() {
 
         {/* App Info */}
         <Card className="p-6 bg-card shadow-card border-border/50 text-center">
-          <h3 className="text-lg font-semibold text-card-foreground mb-2">TRENDFY</h3>
+          <h3 className="text-lg font-semibold text-card-foreground mb-2">FASTION</h3>
           <p className="text-muted-foreground text-sm mb-1">Versão 1.0.0</p>
-          <p className="text-muted-foreground text-xs">© 2025 TRENDFY. Todos os direitos reservados.</p>
+          <p className="text-muted-foreground text-xs">© 2025 FASTION. Todos os direitos reservados.</p>
         </Card>
       </div>
     </div>

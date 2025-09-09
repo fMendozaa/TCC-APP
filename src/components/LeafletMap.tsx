@@ -7,28 +7,28 @@ import "leaflet/dist/leaflet.css";
 const storeLocations = [
   {
     id: 1,
-    name: "TRENDFY São Paulo",
+    name: "FASTION São Paulo",
     position: [-23.5505, -46.6333],
     address: "Rua Augusta, 123 - São Paulo, SP",
     phone: "(11) 99999-9999"
   },
   {
     id: 2,
-    name: "TRENDFY Rio de Janeiro",
+    name: "FASTION Rio de Janeiro",
     position: [-22.9068, -43.1729],
     address: "Av. Copacabana, 456 - Rio de Janeiro, RJ", 
     phone: "(21) 99999-9999"
   },
   {
     id: 3,
-    name: "TRENDFY Belo Horizonte",
+    name: "FASTION Belo Horizonte",
     position: [-19.9167, -43.9345],
     address: "Rua da Bahia, 789 - Belo Horizonte, MG",
     phone: "(31) 99999-9999"
   },
   {
     id: 4,
-    name: "TRENDFY Brasília",
+    name: "FASTION Brasília",
     position: [-15.8267, -47.9218],
     address: "SCS Quadra 1 - Brasília, DF",
     phone: "(61) 99999-9999"

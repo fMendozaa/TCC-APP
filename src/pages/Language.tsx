@@ -10,10 +10,10 @@ export function Language() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [selectedLanguage, setSelectedLanguage] = useState(() => {
-    return localStorage.getItem('trendfy-language') || 'pt-BR';
+    return localStorage.getItem('fastion-language') || 'pt-BR';
   });
   const [selectedRegion, setSelectedRegion] = useState(() => {
-    return localStorage.getItem('trendfy-region') || 'BR';
+    return localStorage.getItem('fastion-region') || 'BR';
   });
 
   const languages = [
@@ -44,7 +44,7 @@ export function Language() {
     }
 
     setSelectedLanguage(langCode);
-    localStorage.setItem('trendfy-language', langCode);
+    localStorage.setItem('fastion-language', langCode);
     toast({
       title: "Idioma alterado! ✅",
       description: `Idioma definido para ${languages.find(l => l.code === langCode)?.name}`,
@@ -61,7 +61,7 @@ export function Language() {
     }
 
     setSelectedRegion(regionCode);
-    localStorage.setItem('trendfy-region', regionCode);
+    localStorage.setItem('fastion-region', regionCode);
     toast({
       title: "Região alterada! ✅",
       description: `Região definida para ${regions.find(r => r.code === regionCode)?.name}`,

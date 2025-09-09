@@ -44,7 +44,7 @@ const handler = async (req: Request): Promise<Response> => {
       emailContent = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold;">TRENDFY</h1>
+            <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold;">FASTION</h1>
             <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 18px;">🚚 Pedido Confirmado!</p>
           </div>
           
@@ -74,8 +74,8 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             
             <p style="color: #888; font-size: 14px; text-align: center; margin: 30px 0 0 0;">
-              TRENDFY - Sua plataforma de moda e estilo<br>
-              © 2025 TRENDFY. Todos os direitos reservados.
+              FASTION - Sua plataforma de moda e estilo<br>
+              © 2025 FASTION. Todos os direitos reservados.
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ const handler = async (req: Request): Promise<Response> => {
           <hr style="margin: 30px 0; border: 1px solid #eee;">
           <p style="color: #666; font-size: 14px;">
             Atenciosamente,<br>
-            <strong>Equipe TRENDFY</strong>
+            <strong>Equipe FASTION</strong>
           </p>
         </div>
       `;
@@ -107,7 +107,7 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Header with gradient -->
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center; border-radius: 16px 16px 0 0;">
             <h1 style="color: white; margin: 0; font-size: 36px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
-              ✨ TRENDFY
+              ✨ FASTION
             </h1>
             <p style="color: rgba(255,255,255,0.95); margin: 12px 0 0 0; font-size: 18px; font-weight: 300;">
               Confirmação de Email
@@ -128,7 +128,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <p style="color: #4a5568; line-height: 1.7; font-size: 16px; margin: 0 0 24px 0; text-align: center;">
               Seu email foi confirmado com sucesso! Agora você está conectado ao mundo da moda e estilo da 
-              <strong style="color: #667eea;">TRENDFY</strong>.
+              <strong style="color: #667eea;">FASTION</strong>.
             </p>
             
             <!-- Features section -->
@@ -152,18 +152,18 @@ const handler = async (req: Request): Promise<Response> => {
             <!-- Social proof -->
             <div style="background: linear-gradient(135deg, #f0fff4, #f7fafc); padding: 20px; border-radius: 12px; margin: 30px 0; text-align: center; border: 1px solid #e2e8f0;">
               <p style="color: #4a5568; margin: 0; font-size: 14px; line-height: 1.5;">
-                <strong style="color: #667eea;">+10.000</strong> pessoas já confiam na TRENDFY para suas compras de moda ❤️
+                <strong style="color: #667eea;">+10.000</strong> pessoas já confiam na FASTION para suas compras de moda ❤️
               </p>
             </div>
             
             <!-- Footer -->
             <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; margin-top: 35px; text-align: center;">
               <p style="color: #a0aec0; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">
-                TRENDFY - Onde estilo encontra tecnologia<br>
+                FASTION - Onde estilo encontra tecnologia<br>
                 Transformando a forma como você compra moda
               </p>
               <p style="color: #cbd5e0; font-size: 12px; margin: 0;">
-                © 2025 TRENDFY. Todos os direitos reservados.
+                © 2025 FASTION. Todos os direitos reservados.
               </p>
             </div>
           </div>
@@ -172,7 +172,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const emailResponse = await resend.emails.send({
-      from: "TRENDFY <onboarding@resend.dev>",
+      from: "FASTION <onboarding@resend.dev>",
       to: [to],
       subject: subject,
       html: emailContent,

@@ -78,7 +78,7 @@ export function Checkout() {
       const emailResponse = await supabase.functions.invoke('send-email', {
         body: {
           to: formData.email,
-          subject: `Confirmação de Pedido ${orderData.orderId} - TRENDFY`,
+          subject: `Confirmação de Pedido ${orderData.orderId} - FASTION`,
           type: 'delivery',
           customerName: formData.name,
           orderDetails: {

@@ -30,7 +30,7 @@ export function EmailNotification() {
       const { data, error } = await supabase.functions.invoke('send-email', {
         body: { 
           to: email,
-          subject: 'Confirmação de Email - TRENDFY',
+          subject: 'Confirmação de Email - FASTION',
           type: 'confirmation',
           customerName: name
         }

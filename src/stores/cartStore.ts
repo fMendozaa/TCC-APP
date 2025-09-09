@@ -76,7 +76,7 @@ export const useCartStore = create<CartState>()(
       }
     }),
     {
-      name: 'trendfy-cart'
+      name: 'fastion-cart'
     }
   )
 );
