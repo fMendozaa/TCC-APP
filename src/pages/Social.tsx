@@ -174,17 +174,6 @@ const mockPosts: Post[] = [
     shares: 23,
     timestamp: "4h",
     liked: true
-  },
-  {
-    id: "9",
-    user: mockFollowing[0],
-    content: "Street style é mais que roupa, é atitude! 🔥 Quando você usa algo que te representa, isso transparece. #StreetWear #Atitude",
-    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=400&fit=crop",
-    likes: 789,
-    comments: 156,
-    shares: 89,
-    timestamp: "6h",
-    liked: false
   }
 ];
 
@@ -194,12 +183,6 @@ const mockComments: Comment[] = [
     user: mockFollowers[1],
     content: "Que look maravilhoso! Onde conseguiu essa blusa? 😍",
     timestamp: "1h"
-  },
-  {
-    id: "10",
-    user: mockFollowing[1],
-    content: "Perfeita combinação! Inspiração para o meu próximo look ✨",
-    timestamp: "45min"
   },
   {
     id: "3",
