@@ -43,7 +43,7 @@ const handler = async (req: Request): Promise<Response> => {
     if (type === 'delivery' && orderDetails) {
       emailContent = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
+          <div style="background: linear-gradient(135deg, #520f18, #a21a28); padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
             <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold;">FASTION</h1>
             <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 18px;">🚚 Pedido Confirmado!</p>
           </div>
@@ -68,7 +68,7 @@ const handler = async (req: Request): Promise<Response> => {
             </p>
             
             <div style="text-align: center; margin: 30px 0;">
-              <p style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);">
+              <p style="background: linear-gradient(135deg, #520f18, #a21a28); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);">
                 Acompanhar Pedido
               </p>
             </div>
@@ -105,7 +105,7 @@ const handler = async (req: Request): Promise<Response> => {
       emailContent = html || `
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc;">
           <!-- Header with gradient -->
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center; border-radius: 16px 16px 0 0;">
+          <div style="background: linear-gradient(135deg, #520f18 0%, #a21a28 100%); padding: 40px 20px; text-align: center; border-radius: 16px 16px 0 0;">
             <h1 style="color: white; margin: 0; font-size: 36px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
               ✨ FASTION
             </h1>
@@ -117,7 +117,7 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Main content -->
           <div style="background: white; padding: 40px 30px; border-radius: 0 0 16px 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
             <div style="text-align: center; margin-bottom: 30px;">
-              <div style="background: linear-gradient(135deg, #667eea, #764ba2); width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);">
+              <div style="background: linear-gradient(135deg, #520f18, #a21a28); width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);">
                 <span style="font-size: 40px;">📧</span>
               </div>
             </div>
@@ -128,7 +128,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <p style="color: #4a5568; line-height: 1.7; font-size: 16px; margin: 0 0 24px 0; text-align: center;">
               Seu email foi confirmado com sucesso! Agora você está conectado ao mundo da moda e estilo da 
-              <strong style="color: #667eea;">FASTION</strong>.
+              <strong style="color: #a21a28;">FASTION</strong>.
             </p>
             
             <!-- Features section -->
@@ -144,7 +144,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <!-- CTA Button -->
             <div style="text-align: center; margin: 35px 0;">
-              <a href="#" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 16px 32px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; display: inline-block; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); transition: all 0.3s ease;">
+              <a href="#" style="background: linear-gradient(135deg, #520f18, #a21a28); color: white; padding: 16px 32px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; display: inline-block; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); transition: all 0.3s ease;">
                 🚀 Começar a Comprar
               </a>
             </div>
@@ -152,7 +152,7 @@ const handler = async (req: Request): Promise<Response> => {
             <!-- Social proof -->
             <div style="background: linear-gradient(135deg, #f0fff4, #f7fafc); padding: 20px; border-radius: 12px; margin: 30px 0; text-align: center; border: 1px solid #e2e8f0;">
               <p style="color: #4a5568; margin: 0; font-size: 14px; line-height: 1.5;">
-                <strong style="color: #667eea;">+10.000</strong> pessoas já confiam na FASTION para suas compras de moda ❤️
+                <strong style="color: #520f18;">+10.000</strong> pessoas já confiam na FASTION para suas compras de moda ❤️
               </p>
             </div>
             
