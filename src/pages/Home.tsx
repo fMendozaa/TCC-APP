@@ -21,16 +21,19 @@ export function Home() {
         {/* AI Section */}
         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-xl font-semibold mb-4 text-foreground">Conheça a nossa AI!</h3>
+          <link to="/TCC-APP/src/pages/AI.tsx">
           <Button 
             className="bg-gradient-primary hover:bg-gradient-accent text-white font-semibold px-8 py-3 rounded-lg shadow-glow transition-all duration-300 hover:scale-105"
           >
             VENHA CONHECER!
           </Button>
+          </link>
         </Card>
 
         {/* Map Section */}
         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-xl font-semibold mb-4 text-foreground">Veja lojas próximas a você!</h3>
+          <link to="/TCC-APP/src/pages/MapPage.tsx">
           <Button 
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
