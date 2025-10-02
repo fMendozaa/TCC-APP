@@ -13,7 +13,7 @@ export function MapPage() {
       address: "Rua Augusta, 123 - São Paulo, SP",
       phone: "(11) 99999-9999",
       hours: "09:00 - 18:00",
-      rating: 4.9
+      rating: 4.8
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ export function MapPage() {
       address: "Av. Copacabana, 456 - Rio de Janeiro, RJ",
       phone: "(21) 99999-9999",
       hours: "09:00 - 18:00",
-      rating: 4.8
+      rating: 4.9
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ export function MapPage() {
       address: "Rua da Bahia, 789 - Belo Horizonte, MG",
       phone: "(31) 99999-9999", 
       hours: "09:00 - 18:00",
-      rating: 4.8
+      rating: 4.7
     },
     {
       id: 4,
@@ -37,15 +37,7 @@ export function MapPage() {
       address: "SCS Quadra 1 - Brasília, DF",
       phone: "(61) 99999-9999",
       hours: "09:00 - 18:00", 
-      rating: 4.7
-    },
-    {
-      id: 5,
-      name: "FASTION Antananarivo",
-      address: "Rua Ramahatra - Antananarivo, ANT",
-      phone: "(261) 99999-9999",
-      hours: "09:00 - 18:00", 
-      rating: 4.3
+      rating: 4.6
     }
   ];
 
@@ -112,8 +104,7 @@ export function MapPage() {
                     1: "-23.5505,-46.6333",
                     2: "-22.9068,-43.1729", 
                     3: "-19.9167,-43.9345",
-                    4: "-15.8267,-47.9218",
-                    5: "-18.9100,47.5250"
+                    4: "-15.8267,-47.9218"
                   };
                   window.open(`https://www.google.com/maps/dir/?api=1&destination=${storeCoords[store.id as keyof typeof storeCoords]}`, '_blank');
                 }}

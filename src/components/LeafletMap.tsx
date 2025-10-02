@@ -32,13 +32,6 @@ const storeLocations = [
     position: [-15.8267, -47.9218],
     address: "SCS Quadra 1 - Brasília, DF",
     phone: "(61) 99999-9999"
-  },
-  {
-    id: 5,
-      name: "FASTION Antananarivo",
-      position: [-18.9100, 47.5250],
-      address: "Rua Ramahatra - Antananarivo, ANT",
-      phone: "(261) 99999-9999",
   }
 ];
 
