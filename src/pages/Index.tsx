@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BottomNavigation } from "@/components/BottomNavigation";
 import { Home } from "./Home";
 import { MapPage } from "./MapPage";
@@ -11,7 +11,16 @@ import { EnhancedAccount } from "./EnhancedAccount";
 
 const Index = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('home');
+
+  // Check if user is logged in
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   // Update active tab based on URL
   useEffect(() => {

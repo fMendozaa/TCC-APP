@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save } from "lucide-react";
+import { Search, Settings, Heart, ShoppingBag, Users, Camera, Edit3, Save, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -75,6 +75,15 @@ const [profile, setProfile] = useState<UserProfile>({
 
   const handleInputChange = (field: keyof UserProfile, value: string) => {
     setTempProfile(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    navigate("/login");
+    toast({
+      title: "Logout realizado! 👋",
+      description: "Até logo!",
+    });
   };
 
   return (
@@ -272,6 +281,16 @@ const [profile, setProfile] = useState<UserProfile>({
               </div>
             </Card>
           ))}
+          
+          <Card className="p-4 bg-gradient-card shadow-card border-border/50 hover:bg-red-500/10 transition-colors cursor-pointer border-red-500/20">
+            <div className="flex items-center justify-between" onClick={handleLogout}>
+              <div className="flex items-center gap-4">
+                <LogOut className="w-6 h-6 text-red-500" />
+                <span className="text-foreground font-medium">Sair do App</span>
+              </div>
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
