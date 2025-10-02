@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 import fashionHero from "@/assets/fashion-hero.jpg";
 
 export function Home() {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
@@ -22,6 +25,7 @@ export function Home() {
         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-xl font-semibold mb-4 text-foreground">Conheça a nossa AI!</h3>
           <Button 
+            onClick={() => navigate('/ai')}
             className="bg-gradient-primary hover:bg-gradient-accent text-white font-semibold px-8 py-3 rounded-lg shadow-glow transition-all duration-300 hover:scale-105"
           >
             VENHA CONHECER!
@@ -32,6 +36,7 @@ export function Home() {
         <Card className="p-6 bg-gradient-card shadow-card border-border/50">
           <h3 className="text-xl font-semibold mb-4 text-foreground">Veja lojas próximas a você!</h3>
           <Button 
+            onClick={() => navigate('/map')}
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
           >
